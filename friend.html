@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+	<title>friend1</title>
+	<meta charset = "utf-8"/>
+	<meta name="author" content="Bolun Zhang, Siyu Liu, Ying Deng">
+	<meta name="keywords" content="main page, Tariyaki, music">
+	<meta name="generator" content="Notepad++">
+	<link  rel = "stylesheet" type="text/css" href="css/title.css">
+</head>
+<body>
+    <div id="top">
+			<label id="team">Tariyaki</label>
+			<button id="login" onclick="window.location.assign('login.php')">Log Out</button>
+	</div>
+	
+	<section id = "title">
+		
+		
+		<div>
+			<img src = "img/thumb.jpg" class="thumb"></img>
+			
+			<div  id="use-intro" class="use-intro">
+				<article>
+					<p>Tom: </p>
+					<p>"I don't know that guy!!!"</p>
+				</article>
+			</div>
+		</div>
+		<div class="some-button">
+			<ul>
+				
+				<li class = "buttonList">
+				     <div align="center">search: <input type="text" style="width:300px;height:20px;font-size:14pt;" id="o" onkeyup="autoComplete.start(event)"></div>
+                     <div class="auto_hidden" id="auto"></div>
+					 <script src="javascript/search.js"></script>
+					 <script>
+                             var autoComplete=new AutoComplete('o','auto',['b0','b12','b22','b3',
+	                         'b4','b5','b6','b7','b8','b2','abd','ab','acd','accd','b1','cd','ccd',
+							 'cbcv','cxf','asdfasdvregrthtyur', 'nujknhgj', 'Bolun Zhang', 'Siyu Liu',
+							 'Ying Dang', 'Steve Gabarro', 'Dominic Duggan']);
+                     </script>
+				</li>
+			</ul>
+		</div>
+	</section>
+	<section id = "main" class = "mainSection">
+		<section id="friendList" class="friendList" style="border = 1px solid;">
+			<ul id = "friends">
+				<li><img src = "img/thumb.jpg" class="thumb"><a href = "friend.html">Steve<a></li>
+				<li><img src = "img/thumb.jpg" class="thumb"><a href = "friend.html">Steven<a></li>
+				<li><img src = "img/thumb.jpg" class="thumb"><a href = "friend.html">Galileo<a></li>
+				<li><img src = "img/thumb.jpg" class="thumb"><a href = "friend.html">Tom<a></li>
+				<li><img src = "img/thumb.jpg" class="thumb"><a href = "friend.html">Cat<a></li>
+				<li><img src = "img/thumb.jpg" class="thumb"><a href = "friend.html">Glass<a></li>
+				<li><img src = "img/thumb.jpg" class="thumb"><a href = "friend.html">Fish<a></li>
+				<li><img src = "img/thumb.jpg" class="thumb"><a href = "friend.html">Micheal<a></li>
+				<li><img src = "img/thumb.jpg" class="thumb"><a href = "friend.html">Schofield<a></li>
+				<li><img src = "img/thumb.jpg" class="thumb"><a href = "friend.html">Jobs<a></li>
+		        </br>
+	            </br>
+			</ul>
+		</section>
+		
+		<section id = "postSection" class = "postSection">
+			<header id="postInput">
+		
+				<button id="add-friend" class="add-friend">add friend</button>
+				<hr>
+			
+			</header>
+			<section id = "postList" class="postList">
+				<li>
+					<section id= "post">
+						<article>
+						     <H4>If You Forget Me</H4>
+						</article>
+						<nav>
+						     
+						      But if each day,</br>
+						      each hour,</br>
+						      you feel that you are destined for me</br>
+						      with implacable sweetness,</br>
+						      if each day a flower</br>
+						      climbs up to your lips to seek me,</br>
+						      ah my love, ah my own,</br>
+						      in me all that fire is repeated,</br>
+						      in me nothing is extinguished or forgotten,</br>
+						      my love feeds on your love, beloved,</br>
+						      and as long as you live it will be in your arms</br>
+						      without leaving mine</br>
+						</nav>
+
+						<button onClick = "myFunction()" id="bCom">comment</button>
+						<hr>	
+						
+					</section>
+				</li>
+				<li>
+					<section id= "post">
+						<article>
+						     <H4>If You Forget Me</H4>
+						</article>
+						<nav>
+						     
+						      But if each day,</br>
+						      each hour,</br>
+						      you feel that you are destined for me</br>
+						      with implacable sweetness,</br>
+						      if each day a flower</br>
+						      climbs up to your lips to seek me,</br>
+						      ah my love, ah my own,</br>
+						      in me all that fire is repeated,</br>
+						      in me nothing is extinguished or forgotten,</br>
+						      my love feeds on your love, beloved,</br>
+						      and as long as you live it will be in your arms</br>
+						      without leaving mine</br>
+						</nav>
+						<button onClick = "myFunction()" id="bCom">comment</button>
+						<hr>
+					</section>
+				</li>
+
+				
+				
+				<script src="javascript/comment.js"></script>
+				</br>
+	            </br>
+
+			</section>			
+		</section>
+		
+		<section id="comment" class = "comment" >
+			<img id="commentPhoto"src = "img/comment.jpg">
+				
+			</img>
+			</br>
+	        </br>
+		</section>
+		<section id="comment1" class = "comment1" style="display:none">
+			    <li>&nbsp;&nbsp;Jobs: wow<hr></li>
+				<li>&nbsp;&nbsp;Zhang: awesome<hr></li>
+				<li>&nbsp;&nbsp;Bo: diao bao le<hr></li>
+				<li>&nbsp;&nbsp;Ying: good<hr></li>
+				<li>&nbsp;&nbsp;Dang: holly<hr></li>
+				<li>&nbsp;&nbsp;Liu: XXXXXX<hr></li>
+				<li>&nbsp;&nbsp;Steve: yooooooooo<hr></li>
+				<li>&nbsp;&nbsp;Steven: yooooooyooo<hr></li>
+			</br>
+	        </br>
+		</section>
+		
+
+		
+	
+	
+	
+	
+	</section>
+	</br>
+	</br>
+	<footer id = "footer">
+	<section id = "footer">
+			<p class="copyright">&nbsp;&nbsp;&nbsp;Copyright &#xA9; Tariyaki</p>
+	</section>
+	</footer>
+	
+	
+	
+	
+
+
+
+</body>
+
+
+</HTML>

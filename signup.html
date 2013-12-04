@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en=US">
+<head>
+		<meta charset="utf-8">
+		<title>Sign Up</title>
+		
+		<meta name="author" content="Bolun Zhang, Siyu Liu, Ying Deng">
+	    <meta name="keywords" content="main page, Tariyaki, music">
+	    <meta name="generator" content="Notepad++">
+	    <link  rel = "stylesheet" type="text/css" href="css/regist.css">
+		<script src="javascript/regist.js" type="text/javascript"></script>
+</head>
+<body>
+		<div id="name">
+			<label id="top">Tariyaki</label>
+			<button id="login">Log in to exsisting account</button>
+		</div>
+
+		<div class = "vertical">
+			<img id='logo' src='img/logo.jpg'/>
+		</div>
+		<div class = "vertical">
+		<p class = "p1">Sign up into Tariyaki:</p>
+		<FORM id="signUp" action='login.php' method='post'>
+			<div class="subVertical">
+			<input type='text' placeholder="Enter User Name ..." id="user name" name='user'/><br>
+			<input type = 'text' placeholder="Email Address ..." id="email" name = 'email'/><br>
+			<input placeholder="Enter Password ..." type="password" id="password1" name='pass1'/><br>
+			<input placeholder="Confirm Password ..." type="password" id="password2" name = 'pass2'/><br>
+			<textarea rows="6" cols="30" placeholder="Self Introduction ..." id="selfIntro" name='selfIntro'></textarea><br>
+			<button form ="signUp" type = "Submit" id="submit">Submit</button>
+			<button form ="signUp" type = "Reset" id="reset" value = "reset"/>Reset</button><br>
+			</div>
+			<div class="subVertical">
+			<label class="column3" for="genderOption">Gender: </label>
+			<select id="genderOption" name="gender" form="signUp">
+			  <option value="male">Male</option>
+			  <option value="female">Female</option>
+			</select><br>
+			<input type="file" id="choosePic" name="profilePic" onchange="previewImage(this);"/><br>
+			<span id="hint">/*Upload profile picture*/</span>
+			<div id="curImg">
+				<span>Your profile image is shown here</span>
+			</div>
+			<label class="column3">Specialty:</label><br>
+			<div id="specialty">	
+				<input type="checkbox" value="South East Asian" name="speciality">South East Asian <br>
+				<input type="checkbox" value="East Asian" name="speciality">East Asian <br> 
+				<input type="checkbox" value="Hip pop" name="speciality">Hip pop <br> 
+				<input type="checkbox" value="Jazz" name="speciality">Jazz <br> 
+				<input type="checkbox" value="Pop" name="speciality">Pop <br> 
+				<input type="checkbox" value="R&B" name="speciality">R&B <br>
+			</div>
+			<div id="specialty">
+				<input type="checkbox" value="Country" name="speciality">Country <br> 
+				<input type="checkbox" value="Blues" name="speciality">Blues <br> 
+				<input type="checkbox" value="African" name="speciality">African <br> 
+				<input type="checkbox" value="Classic" name="speciality">Classic <br> 
+				<input type="checkbox" value="Rock" name="speciality">Rock <br>
+				<input type="checkbox" value="Industrial" name="speciality">Industrial <br>
+			</div>
+			<div id="specialty">
+				<input type="checkbox" value="SKA" name="speciality">SKA <br>
+				<input type="checkbox" value="Modem Folk" name="speciality">Modem Folk <br>
+				<input type="checkbox" value="Electronic" name="speciality">Electronic <br>
+				<input type="checkbox" value="Inspirational" name="speciality">Inspirational <br> 
+				<input type="checkbox" value="Opera" name="speciality">Opera <br> 
+				<input type="checkbox" value="Chinese Opera" name="speciality">Chinese Opera <br>
+			</div>
+			</div>
+		</FORM>
+		</div>
+	</body>
+
+
+<html>

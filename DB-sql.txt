@@ -1,0 +1,111 @@
+create table USER(
+ID int NOT NULL AUTO_INCREMENT,
+firstName varchar(50) not null,
+familyName varchar(50) not null,
+dob date,
+userInfo text,
+profile longblob,
+primary key(id)
+);
+
+create table LOGIN(
+userId int not null,
+userName varchar(50),
+password varchar(50),
+primary key (userId),
+FOREIGN KEY (userId) REFERENCES USER(id)
+);
+
+create table FRIENDS(
+friendId int not null,
+userId int not null,
+friendFirstName varchar(50),
+friendFamilyName varchar(50),
+FOREIGN KEY (userId) REFERENCES USER(id),
+FOREIGN KEY (friendId) REFERENCES USER(id)
+); 
+
+create table MUSIC(
+musicId int not null AUTO_INCREMENT,
+userId int not null,
+name varchar(50),
+link varchar(100),
+PRIMARY KEY (musicId),
+FOREIGN KEY (userId) REFERENCES USER(id)
+);
+
+create table VIDEO(
+videoId int not null AUTO_INCREMENT,
+userId int not null,
+name varchar(50),
+link varchar(100),
+PRIMARY KEY (videoId),
+FOREIGN KEY (userId) REFERENCES USER(id)
+);
+
+create table PICTURE(
+pictureId int not null AUTO_INCREMENT,
+userId int not null,
+picture longblob,
+PRIMARY KEY (pictureId),
+FOREIGN KEY (userId) REFERENCES USER(id)
+);
+
+create table ARTICLE(
+articleId int not null AUTO_INCREMENT,
+userId int not null,
+musicId int, 
+videoId int, 
+pictureId int, 
+title varchar(50),
+content longtext,
+date datetime,
+PRIMARY KEY (articleId),
+FOREIGN KEY (userId) REFERENCES USER(id), 
+FOREIGN KEY (musicId) REFERENCES MUSIC(musicId), 
+FOREIGN KEY (videoId) REFERENCES VIDEO(videoId), 
+FOREIGN KEY (pictureId) REFERENCES PICTURE(pictureId)
+);
+
+create table COMMENTS(
+commentId int not null AUTO_INCREMENT, 
+articleId int not null, 
+userId int not null, 
+content longtext, 
+date datetime, 
+PRIMARY KEY (commentId),
+FOREIGN KEY (userId) REFERENCES USER(id), 
+FOREIGN KEY (articleId) REFERENCES ARTICLE(articleId)
+);
+
+create table SPECIALTY(
+userId int not null, 
+SouthEastAsian bool default false, 
+Country bool default false, 
+SKA bool default false, 
+EastAsian bool default false, 
+Blues bool default false, 
+ModemFolk bool default false, 
+HipPop bool default false, 
+African bool default false, 
+Electronic bool default false, 
+Jazz bool default false, 
+Classic bool default false, 
+Inspirational bool default false, 
+Pop bool default false, 
+Rock bool default false, 
+Opera bool default false, 
+RB bool default false, 
+Industrial bool default false, 
+ChineseOpera bool default false, 
+HeavyMetal bool default false, 
+PRIMARY KEY (userId), 
+FOREIGN KEY (userId) REFERENCES USER(id)
+);
+
+create table ADMIN(
+adminId int not null AUTO_INCREMENT, 
+adminName varchar(50), 
+adminPassword varchar(50), 
+PRIMARY KEY (adminId)
+);

@@ -303,13 +303,13 @@
 				else if(thisForm.pass1.value==""||thisForm.pass1.value==null)
 				{
 					alert("Password must be filled out!");
-					thisForm.fass1.focus();	
+					thisForm.pass1.focus();	
 					return false;
 				}
 				else if(thisForm.pass2.value==""||thisForm.pass2.value==null)
 				{
 					alert("You must confirm your password!");
-					thisForm.fass2.focus();
+					thisForm.pass2.focus();
 					return false;
 				}
 				else if (thisForm.pass1.value !== thisForm.pass2.value)

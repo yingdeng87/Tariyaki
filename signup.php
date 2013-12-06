@@ -289,53 +289,90 @@
 					thisForm.user.focus();
 					return false;
 				}
+<<<<<<< HEAD
 				if(thisForm.email.value==""||thisForm.user.value==null)
+=======
+				else if(thisForm.email.value==""||thisForm.email.value==null)
+>>>>>>> 370449616570054102633abd9968ff5eb6896475
 				{
 					alert("Email must be filled out!");
 					thisForm.email.focus();
 					return false;
 				}
+<<<<<<< HEAD
 				if (thisForm.email.value.search(/^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/) == -1) {
+=======
+				else if (thisForm.email.value.search(/^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/) == -1) {
+>>>>>>> 370449616570054102633abd9968ff5eb6896475
 					alert("Please input proper Email form!");
 					thisForm.email.focus();
 					return false;
 				}
+<<<<<<< HEAD
 				if(thisForm.pass1.value==""||thisForm.user.value==null)
+=======
+				else if(thisForm.pass1.value==""||thisForm.pass1.value==null)
+>>>>>>> 370449616570054102633abd9968ff5eb6896475
 				{
 					alert("Password must be filled out!");
 					thisForm.fass1.focus();	
 					return false;
 				}
+<<<<<<< HEAD
 				if(thisForm.pass2.value==""||thisForm.user.value==null)
+=======
+				else if(thisForm.pass2.value==""||thisForm.pass2.value==null)
+>>>>>>> 370449616570054102633abd9968ff5eb6896475
 				{
 					alert("You must confirm your password!");
 					thisForm.fass2.focus();
 					return false;
 				}
+<<<<<<< HEAD
 				if (thisForm.pass1.value!=thisForm.pass1.value)
+=======
+				else if (thisForm.pass1.value !== thisForm.pass2.value)
+>>>>>>> 370449616570054102633abd9968ff5eb6896475
 				{
 					alert("Please confirm your password is right!");
 					thisForm.pass1.value="";
 					thisForm.pass2.value="";
 					return false;
 				}
+<<<<<<< HEAD
 				if(thisForm.selfIntro.value==""||thisForm.user.value==null)
+=======
+				else if(thisForm.selfIntro.value==""||thisForm.selfIntro.value==null)
+>>>>>>> 370449616570054102633abd9968ff5eb6896475
 				{
 					alert("Self Introduction must be filled out!");
 					thisForm.selfIntro.focus();
 					return false;
 				}
+<<<<<<< HEAD
 				if(thisForm.gender.value==""||thisForm.user.value==null)
+=======
+				else if(thisForm.gender[0].checked == false && thisForm.gender[1].checked == false)
+>>>>>>> 370449616570054102633abd9968ff5eb6896475
 				{
 					alert("Please choose your gender!");
 					return false;
 				}
+<<<<<<< HEAD
 				if(thisForm.profilePic.value==""||thisForm.user.value==null)
+=======
+				else if(thisForm.profilePic.value==""||thisForm.profilePic.value==null)
+>>>>>>> 370449616570054102633abd9968ff5eb6896475
 				{
 					alert("Please choose a Profile Picture!");
 					thisForm.profilePic.focus();
 					return false;
 				}
+<<<<<<< HEAD
+=======
+				else 
+					return true;
+>>>>>>> 370449616570054102633abd9968ff5eb6896475
 			}
 		</script>
 	</head>
@@ -343,7 +380,11 @@
 		<div id="name">
 			<img id='logo' src='img/logo.png'/>
 			<label id="top">Tariyaki</label>
+<<<<<<< HEAD
 			<button id="login">Log in to exsisting account</button>
+=======
+			<button id="login" onclick="location.href='login.php'">Log in to exsisting account</button>
+>>>>>>> 370449616570054102633abd9968ff5eb6896475
 		</div>
 		<div class="leftDiv"><p></p></div>
 		<div class = "mainFrame" style="margin-left:100px;">

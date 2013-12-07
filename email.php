@@ -238,27 +238,27 @@
 	<body>
 		<div id="name">
 			<label id="top">Tariyaki</label>
-		<FORM id="signUp" action='signup.php' method='post'>
-			<button id="login" type = "submit">Sign up for free</button>
-		</FORM>
+			<button id="login">Log in to exsisting account</button>
 		</div>
 
 		<div class = "vertical">
 			<img id='logo' src='img/logo.png'/>
 		</div>
 		<div class = "vertical">
-		
-		<FORM id="signUp" action='main.php' method='post'>
+		<p class = "p1">Please enter your registered email address:</p>
+		<FORM id="signUp" action='sentEmail.php' method='post'>
 			<div class="subVertical">
-			<input type='text' placeholder="Enter User Name ..." id="user name" name='user'/><br>
 			
-			<input placeholder="Enter Password ..." type="password" id="password1" name='pass1'/><br>
+			<input type = 'text' placeholder="Email Address ..." id="email" name = 'email'/><br>
+			<button form ="signUp" type = "Submit" id="submit">Submit</button>
+			<button form ="signUp" type = "Reset" id="reset" value = "reset"/>Reset</button><br>
+			</div>
 			
 			
-			<button  type = "Submit" id="submit">Submit</button>
-		</FORM>
-		<FORM id="signUp" action = 'email.php' method = 'post'>
-			<button type ="submit" id = "submit">Forget</button>
+
+
+
+			</div>
 		</FORM>
 		</div>
 	</body>

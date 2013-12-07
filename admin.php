@@ -15,7 +15,7 @@
 	<div id = "contentWrap">
 		<!--friend list-->
 		<div id= "friendListWrap">
-		<iframe src="friendList.php" width="240px" height="795px"></iframe>
+		<iframe src="userList.php" width="240px" height="795px"></iframe>
 		</div>
 		
 		<!--post list wrap-->

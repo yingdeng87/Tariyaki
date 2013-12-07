@@ -5,6 +5,7 @@ familyName varchar(50) not null,
 dob date,
 userInfo text,
 profile longblob,
+email varchar(100),
 primary key(id)
 );
 

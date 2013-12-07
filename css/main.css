@@ -92,7 +92,7 @@ body
 
 #friendListWrap
 {
-	
+	overflow-y: scroll;
 	display:inline-block;
 	width:20%;
 	height:800px;
@@ -104,6 +104,7 @@ body
 
 #postWrap
 {
+
 	margin-left:30px;
 	display:inline-block;
 	width:43%;
@@ -112,6 +113,11 @@ body
 	border-width:4px;
 	background-color:blue;
 	float:left;
+}
+#postListWrap
+{
+	overflow-y: scroll;
+	height:611px;
 }
 #textArea
 {
@@ -137,6 +143,7 @@ body
 }
 #commentWrap
 {	
+	overflow-y: scroll;
 	display:inline-block;
 	width:30%;
 	height:800px;

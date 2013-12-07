@@ -123,6 +123,14 @@
 	echo musicNameByMusicId(3) . "</br>";
 	echo musicNameByMusicId(4) . "</br>";
 	echo musicNameByMusicId(5) . "</br>";
+	if(musicLinkByMusicId(1)==null)
+	{
+	    echo "yes, it's null </br>";
+	}
+	else
+	{
+	    echo "no, not null </br>";
+	}
 	echo musicLinkByMusicId(1) . "</br>";
 	echo musicLinkByMusicId(2) . "</br>";
 	echo musicLinkByMusicId(3) . "</br>";
@@ -154,6 +162,70 @@
 		{
 			echo $array[0] . " " . $array[1] . " " . $array[2] . " " . $array[3] . "</br> " ;				
 		}
+		
+		echo "picture ID" . "</br>";
+	$arr=pictureIdByUserId(2);
+	for($i=0;$i<count($arr);$i++)
+	{
+	    echo $arr[$i] . "</br>";
+	}
+	echo '<img src="data:image/jpg;base64,'.base64_encode(pictureByPictureId(4)).'"><br>';"</br>";
+	
+	
+	$res=resOfPictureByPictureId(4);
+	while($array = mysql_fetch_row($res))
+		{
+			echo $array[0] . " " . $array[1] . " " . '<img src="data:image/jpg;base64,'.base64_encode($array[2]).'"><br>' . "</br> " ;				
+		}
+	
+	updateArticleContentByArticleId(1, "changed content");
+	
+	updateArticlePictureByArticleId(1, 4);
+	updateArticleVideoByArticleId(1, 5);
+	updateArticleMusicByArticleId(1, 3);
+	updateArticleTitleByArticleId(1, "changed title");
+	updateArticleDateByArticleId(1);
+	
+	updateUserInfoByUserId(1, "changed userInfo");
+	updateUserEmailByUserId(1, "10000@qq.com");
+	
+	
+	$res=resOfSpecialtyByUserId(5);
+	while($array = mysql_fetch_row($res))
+	{
+	    //userId, SouthEastAsian, Country, SKA, EastAsian, 
+		//Blues, ModemFolk, HipPop, African, Electronic, Jazz, Classic, Inspirational, 
+		//Pop, Rock, Opera, RB, Industrial, ChineseOpera, HeavyMetal
+		if($array[1]==true)
+        {
+		    echo "good at South East Asian </br>";
+		}		
+		if($array[2]==true)
+        {
+		    echo "good at Country </br>";
+		}		
+		if($array[3]==true)
+        {
+		    echo "good at SKA </br>";
+		}	
+        if($array[19]==false)
+        {
+		    echo "not good at HeavyMetal </br>";
+		}		
+	}
+	/*addSpecialty(2, true, true, "false", true, true, true, 
+	true, true, true, "false", true, true, true, true, true, true, 
+	true, true, "false");
+	addSpecialty(3, true, true, true, true, true, true, 
+	true, true, true, true, "false", true, true, "false", true, true, 
+	true, true, "false");
+	addSpecialty(4, true, true, true, true, true, true, 
+	"false", true, "false", "false", true, true, "false", true, true, true, 
+	true, true, true);
+	addSpecialty(5, true, true, true, true, true, true, 
+	true, "false", true, true, "false", true, "false", true, true, true, 
+	true, true, "false");*/
+	deleteUserByUserId(1);
 	echo "</br>";
 	echo "</br>";
 	echo "</br>";

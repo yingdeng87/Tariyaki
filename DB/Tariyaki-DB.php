@@ -1013,17 +1013,348 @@
 		{
 			echo mysql_error(). " : line1014  ";
 		}
-		$pid=0;
+		$pid=Array();
 		while($array = mysql_fetch_row($res))
 		{
-			$pid = $array[0];				
+			$pid[] = $array[0];				
 		}
 		mysql_close($lkid);
 		return $pid;
 	}
-	function pictureByPictureId(){}
-	function resOfPictureByPictureId(){}
-	function updateArticleContentByArticleId(){}
-	function updateArticleTitleByArticleId(){}
-	function updateArticleDateByArticleId(){}
+	function pictureByPictureId($pictureId)
+	{
+	    global $db;
+		$lkid=connectDatabase();
+		if (! $succ = mysql_select_db($db))
+		{
+		    echo mysql_error();
+			exit;
+		}
+		$sql = "select picture from picture where pictureId='" . $pictureId . "';";
+		if (! $res=mysql_query($sql , $lkid)) 
+		{
+			echo mysql_error(). " : line1036  ";
+		}
+		$picture="";
+		while($array = mysql_fetch_row($res))
+		{
+			$picture = $array[0];				
+		}
+		mysql_close($lkid);
+		return $picture;
+	}
+	function resOfPictureByPictureId($pictureId)
+	{
+	    global $db;
+		$lkid=connectDatabase();
+		if (! $succ = mysql_select_db($db))
+		{
+		    echo mysql_error();
+			exit;
+		}
+		$sql = "select * from picture where pictureId='" . $pictureId . "';";
+		if (! $res=mysql_query($sql , $lkid)) 
+		{
+			echo mysql_error(). " : line1058  ";
+		}
+		mysql_close($lkid);
+		return $res;
+	}
+	function updateArticleContentByArticleId($articleId, $content)
+	{
+	    global $db;
+		$lkid=connectDatabase();
+		if (! $succ = mysql_select_db($db))
+		{
+		    echo mysql_error();
+			exit;
+		}
+		$sql="update article set content='" . $content . "' where articleId=" . $articleId . ";";
+		if (! $res=mysql_query($sql , $lkid)) 
+		{
+			echo mysql_error(). " : line1075  ";
+		}
+		mysql_close($lkid);
+	}
+	function updateArticleTitleByArticleId($articleId, $title)
+	{
+	    global $db;
+		$lkid=connectDatabase();
+		if (! $succ = mysql_select_db($db))
+		{
+		    echo mysql_error();
+			exit;
+		}
+		$sql="update article set title='" . $title . "' where articleId=" . $articleId . ";";
+		if (! $res=mysql_query($sql , $lkid)) 
+		{
+			echo mysql_error(). " : line1091  ";
+		}
+		mysql_close($lkid);
+	}
+	function updateArticleDateByArticleId($articleId)
+	{
+	    global $db;
+		$lkid=connectDatabase();
+		if (! $succ = mysql_select_db($db))
+		{
+		    echo mysql_error();
+			exit;
+		}
+		$sql="update article set date=now() where articleId=" . $articleId . ";";
+		if (! $res=mysql_query($sql , $lkid)) 
+		{
+			echo mysql_error(). " : line1107  ";
+		}
+		mysql_close($lkid);
+	}
+	function updateArticleMusicByArticleId($articleId, $musicId)
+	{
+	    global $db;
+		$lkid=connectDatabase();
+		if (! $succ = mysql_select_db($db))
+		{
+		    echo mysql_error();
+			exit;
+		}
+		$sql="update article set musicId=" . $musicId . " where articleId=" . $articleId . ";";
+		if (! $res=mysql_query($sql , $lkid)) 
+		{
+			echo mysql_error(). " : line1123  ";
+		}
+		mysql_close($lkid);
+	}
+	function updateArticleVideoByArticleId($articleId, $videoId)
+	{
+	    global $db;
+		$lkid=connectDatabase();
+		if (! $succ = mysql_select_db($db))
+		{
+		    echo mysql_error();
+			exit;
+		}
+		$sql="update article set videoId=" . $videoId . " where articleId=" . $articleId . ";";
+		if (! $res=mysql_query($sql , $lkid)) 
+		{
+			echo mysql_error(). " : line1139  ";
+		}
+		mysql_close($lkid);
+	}
+	function updateArticlePictureByArticleId($articleId, $pictureId)
+	{
+	    global $db;
+		$lkid=connectDatabase();
+		if (! $succ = mysql_select_db($db))
+		{
+		    echo mysql_error();
+			exit;
+		}
+		$sql="update article set pictureId=" . $pictureId . " where articleId=" . $articleId . ";";
+		if (! $res=mysql_query($sql , $lkid)) 
+		{
+			echo mysql_error(). " : line1155  ";
+		}
+		mysql_close($lkid);
+	}
+	function updateUserInfoByUserId($userId, $userInfo)
+	{
+	    global $db;
+		$lkid=connectDatabase();
+		if (! $succ = mysql_select_db($db))
+		{
+		    echo mysql_error();
+			exit;
+		}
+		$sql="update user set userInfo='" . $userInfo . "' where Id=" . $userId . ";";
+		if (! $res=mysql_query($sql , $lkid)) 
+		{
+			echo mysql_error(). " : line1171  ";
+		}
+		mysql_close($lkid);
+	}
+	function updateUserEmailByUserId($userId, $email)
+	{
+	    global $db;
+		$lkid=connectDatabase();
+		if (! $succ = mysql_select_db($db))
+		{
+		    echo mysql_error();
+			exit;
+		}
+		$sql="update user set email='" . $email . "' where Id=" . $userId . ";";
+		if (! $res=mysql_query($sql , $lkid)) 
+		{
+			echo mysql_error(). " : line1187  ";
+		}
+		mysql_close($lkid);
+	}
+	function resOfSpecialtyByUserId($userId)
+	{
+	    global $db;
+		$lkid=connectDatabase();
+		if (! $succ = mysql_select_db($db))
+		{
+		    echo mysql_error();
+			exit;
+		}
+		$sql="select * from specialty where userId=" . $userId . ";";
+		if (! $res=mysql_query($sql , $lkid)) 
+		{
+			echo mysql_error(). " : line1203  ";
+		}
+		mysql_close($lkid);
+		return $res;
+	}
+	function deleteCommentByUserId($userId)
+	{
+	    global $db;
+		$lkid=connectDatabase();
+		if (! $succ = mysql_select_db($db))
+		{
+		    echo mysql_error();
+			exit;
+		}
+		$sql="delete from comments where userId=" . $userId . ";";
+		if (! $res=mysql_query($sql , $lkid)) 
+		{
+			echo mysql_error(). " : line1220  ";
+		}
+		mysql_close($lkid);
+	}
+	function deleteMusicByUserId($userId)
+	{
+	    global $db;
+		$lkid=connectDatabase();
+		if (! $succ = mysql_select_db($db))
+		{
+		    echo mysql_error();
+			exit;
+		}
+		$sql="delete from music where userId=" . $userId . ";";
+		if (! $res=mysql_query($sql , $lkid)) 
+		{
+			echo mysql_error(). " : line1220  ";
+		}
+		mysql_close($lkid);
+	}
+	function deleteVideoByUserId($userId)
+	{
+	    global $db;
+		$lkid=connectDatabase();
+		if (! $succ = mysql_select_db($db))
+		{
+		    echo mysql_error();
+			exit;
+		}
+		$sql="delete from video where userId=" . $userId . ";";
+		if (! $res=mysql_query($sql , $lkid)) 
+		{
+			echo mysql_error(). " : line1220  ";
+		}
+		mysql_close($lkid);
+	}
+	function deletePictureByUserId($userId)
+	{
+	    global $db;
+		$lkid=connectDatabase();
+		if (! $succ = mysql_select_db($db))
+		{
+		    echo mysql_error();
+			exit;
+		}
+		$sql="delete from picture where userId=" . $userId . ";";
+		if (! $res=mysql_query($sql , $lkid)) 
+		{
+			echo mysql_error(). " : line1220  ";
+		}
+		mysql_close($lkid);
+	}
+	function deleteArticleByUserId($userId)
+	{
+	    deleteCommentByUserId($userId);
+		deletePictureByUserId($userId);
+		deleteVideoByUserId($userId);
+		deleteMusicByUserId($userId);
+	    global $db;
+		$lkid=connectDatabase();
+		if (! $succ = mysql_select_db($db))
+		{
+		    echo mysql_error();
+			exit;
+		}
+		$sql="delete from article where userId=" . $userId . ";";
+		if (! $res=mysql_query($sql , $lkid)) 
+		{
+			echo mysql_error(). " : line1220  ";
+		}
+		mysql_close($lkid);
+	}
+	function deleteLoginByUserId($userId)
+	{
+	    global $db;
+		$lkid=connectDatabase();
+		if (! $succ = mysql_select_db($db))
+		{
+		    echo mysql_error();
+			exit;
+		}
+		$sql="delete from login where userId=" . $userId . ";";
+		if (! $res=mysql_query($sql , $lkid)) 
+		{
+			echo mysql_error(). " : line1220  ";
+		}
+		mysql_close($lkid);
+	}
+	function deleteSpecialtyByUserId($userId)
+	{
+	    global $db;
+		$lkid=connectDatabase();
+		if (! $succ = mysql_select_db($db))
+		{
+		    echo mysql_error();
+			exit;
+		}
+		$sql="delete from specialty where userId=" . $userId . ";";
+		if (! $res=mysql_query($sql , $lkid)) 
+		{
+			echo mysql_error(). " : line1220  ";
+		}
+		mysql_close($lkid);
+	}
+	function deleteFriendByUserId($userId)
+	{
+	    global $db;
+		$lkid=connectDatabase();
+		if (! $succ = mysql_select_db($db))
+		{
+		    echo mysql_error();
+			exit;
+		}
+		$sql="delete from friends where userId=" . $userId . " or friendId=" . $userId . ";";
+		if (! $res=mysql_query($sql , $lkid)) 
+		{
+			echo mysql_error(). " : line1220  ";
+		}
+		mysql_close($lkid);
+	}
+	function deleteUserByUserId($userId)
+	{
+	    deleteArticleByUserId($userId);
+	    deleteFriendByUserId($userId);
+		deleteSpecialtyByUserId($userId);
+		deleteLoginByUserId($userId);
+	    global $db;
+		$lkid=connectDatabase();
+		if (! $succ = mysql_select_db($db))
+		{
+		    echo mysql_error();
+			exit;
+		}
+		$sql="delete from user where userId=" . $userId . ";";
+		if (! $res=mysql_query($sql , $lkid)) 
+		{
+			echo mysql_error(). " : line1220  ";
+		}
+		mysql_close($lkid);
+	}
 ?>

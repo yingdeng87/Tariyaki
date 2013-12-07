@@ -21,6 +21,14 @@
 	<meta name="keywords" content="main page, Tariyaki, music">
 	<meta name="generator" content="Notepad++">
 	<link  rel = "stylesheet" type="text/css" href="css/main.css">
+	<script type="text/javascript">
+		function uploadMusic(file)
+		{
+			if (!file.value.match(/\.(mp3|wav)$/))
+			alert('not support your music file');
+			
+		}
+	</script>
 </head>
 
 <body>
@@ -92,10 +100,13 @@
 					</input>
 				</div>
 				<div id = "buttonList">
+				<form id="postForm" action='main.php' onsubmit="return dataCheck(this)" method='post'>
 					<ul>
-						<li class="postButton"><input type="button" value = "post"href=""></input></li>
-						<li class="postButton"><input type="button" value = "upload"href=""></input></li>
+						<li class="postButton"><input type="file" id="uploadButton" name="upload" onchange="uploadMusic(this);"/><br></li>
+						
+						<li class="postButton"><input type="submit" id = "submitPost" name = "post"></input></li>
 					</ul>
+				</form>
 				</div>
 			</div>
 			

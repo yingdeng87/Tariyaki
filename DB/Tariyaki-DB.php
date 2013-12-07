@@ -8,7 +8,11 @@
 		global $gl_dbhost, $gl_user, $gl_pass, $db;
 		if(!$linkid=mysql_connect($gl_dbhost,$gl_user,$gl_pass))
 		{
-			echo "can not connect";
+			echo $gl_dbhost;
+			echo $gl_user;
+			echo $gl_pass;
+			echo $db;
+			echo "Can not connect database";
 			exit;
 		}
 		else

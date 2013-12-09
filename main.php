@@ -1,23 +1,28 @@
 <?php
 	if(isset($_POST['user'])&&isset($_POST['pass1']))
 	{
-	
+		define('ROOT', __DIR__); 
+		include ROOT . '/DB/tariyaki-DB.php';
+		connectDatabase();
+		session_start();
+		if(userIdByUserNameAndPassword($_POST['user'], sha1($_POST['pass1']))==null)
+		{
+			$url="signup.php"; 
+			echo "<script type='text/Javascript'>alert('invalid username or password');location.href='login.php';</script>"; 
+		}
+		$_SESSION['userId'] = userIdByUserNameAndPassword($_POST['user'], sha1($_POST['pass1']));
+		
 	}
 	else
 	{
 		$url="signup.php"; 
-		echo "<script type='text/Javascript'>location.href='login.php';</script>"; 
+		echo "<script type='text/Javascript'>
+		location.href='login.php';</script>"; 
 	}
 
-	session_start();
 	
-	if(!isset($_SESSION['userId']))
-	{
-		$_SESSION['userId']=$_POST['userId'];
-	}
-	define('ROOT', __DIR__); 
-	include ROOT . '/DB/tariyaki-DB.php';
-	connectDatabase();
+	
+
 ?>
 <!DOCTYPE html>
 <HTML lang="en-US">
@@ -100,30 +105,31 @@
 		<div id= "friendListWrap">
 			<?php
 			
-			//if($_SESSION['userId']))
-			//{	
+			if(isset($_SESSION['userId']))
+			{	
 				
-				$arr = resOfFriendByUserId(1);
+				$arr = resOfFriendByUserId($_SESSION['userId']);
 				echo"<form action='friend.php' method='post'>";
 				echo"<ul>";
 				while($row = mysql_fetch_array($arr,MYSQL_NUM))
 				{
 					$i=1;
 					echo '<li>';
-					echo '<img height = 20px src="data:image/jpg;base64,'.base64_encode(profileByUserId(2)).'">';
+					echo '<img height = 20px src="data:image/jpg;base64,'.base64_encode(profileByUserId($_SESSION['userId'])).'">';
 					echo "<input  type =submit name=friend value='";
 					foreach($row as $p)
 					{
-						if($i==3||$i==4)
+						if($i==3)
 							echo $p." ";
 						$i++;
 					}
 					echo"'>";
 					
+					
 				}
 				
 				echo"</form>";
-			//}
+			}
 			?>
 		</div>
 		

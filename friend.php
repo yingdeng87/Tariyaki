@@ -1,13 +1,13 @@
 <?php
-	if(isset($_POST['friend']))
+	if(isset($_POST['friendId']))
 	{
 		define('ROOT', __DIR__); 
 		include ROOT . '/DB/tariyaki-DB.php';
 		connectDatabase();
 		
 		session_start();
-		$_SESSION['userId'] = userIdByFirstName($_POST['friend']);
-		
+		$_SESSION['userId'] = $_POST['friendId'];
+
 	}
 	else
 	{
@@ -99,31 +99,41 @@
 	<div id = "contentWrap">
 		<!--friend list-->
 		<div id= "friendListWrap">
-			<?php
+	<?php
 			
 			if(isset($_SESSION['userId']))
 			{	
 				
 				$arr = resOfFriendByUserId($_SESSION['userId']);
-				echo"<form action='friend.php' method='post'>";
+				
 				echo"<ul>";
 				while($row = mysql_fetch_array($arr,MYSQL_NUM))
 				{
+					
 					$i=1;
-					echo '<li>';
-					echo '<img height = 20px src="data:image/jpg;base64,'.base64_encode(profileByUserId($_SESSION['userId'])).'">';
-					echo "<input  type =submit name=friend value='";
 					foreach($row as $p)
 					{
-						if($i==3||$i==4)
-							echo $p." ";
+						if($i==1)
+							$friendId = $p;
+						else if($i==2)
+							$userId = $p;
+						else if($i==3)
+							$friendFirstName = $p;
+						else
+							$firendLastName = $p;
 						$i++;
 					}
+					echo '<li>';
+					echo '<img height = 20px src="data:image/jpg;base64,'.base64_encode(profileByUserId($friendId)).'">';
+					echo "<input  type =text name=friend value='";
+					echo "$friendFirstName $firendLastName";
 					echo"'>";
+				
+				
 					
 				}
 				
-				echo"</form>";
+				
 			}
 			?>
 		</div>
@@ -134,7 +144,7 @@
 			
 			
 			<!--Post list-->
-			<div id = "postListWrap">
+			<div id = "friendPostListWrap">
 				<ul>
 					<?php
 						

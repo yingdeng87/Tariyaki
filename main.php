@@ -109,10 +109,11 @@
 			{	
 				
 				$arr = resOfFriendByUserId($_SESSION['userId']);
-				echo"<form action='friend.php' method='post'>";
+				
 				echo"<ul>";
 				while($row = mysql_fetch_array($arr,MYSQL_NUM))
 				{
+					echo"<form action='friend.php' method='post'>";
 					$i=1;
 					foreach($row as $p)
 					{
@@ -127,15 +128,16 @@
 						$i++;
 					}
 					echo '<li>';
-					echo '<img height = 20px src="data:image/jpg;base64,'.base64_encode(profileByUserId($_SESSION['userId'])).'">';
+					echo '<img height = 20px src="data:image/jpg;base64,'.base64_encode(profileByUserId($friendId)).'">';
 					echo "<input  type =submit name=friend value='";
-					
+					echo "$friendFirstName $firendLastName";
 					echo"'>";
-					
+					echo "<input hidden type = text name = friendId value = $friendId>";
+					echo"</form>";
 					
 				}
 				
-				echo"</form>";
+				
 			}
 			?>
 		</div>

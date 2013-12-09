@@ -119,6 +119,11 @@ body
 	overflow-y: scroll;
 	height:585px;
 }
+#friendPostListWrap
+{
+	overflow-y: scroll;
+	height:800px;
+}
 #textArea
 {
 	margin:10px;

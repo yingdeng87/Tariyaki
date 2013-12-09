@@ -1,21 +1,37 @@
+<?php
+	if(isset($_POST['user'])&&isset($_POST['pass1']))
+	{
+	
+	}
+	else
+	{
+		$url="signup.php"; 
+		echo "<script type='text/Javascript'>location.href='login.php';</script>"; 
+	}
+
+	session_start();
+	
+	if(!isset($_SESSION['userId']))
+	{
+		$_SESSION['userId']=$_POST['userId'];
+	}
+	define('ROOT', __DIR__); 
+	include ROOT . '/DB/tariyaki-DB.php';
+	connectDatabase();
+?>
 <!DOCTYPE html>
 <HTML lang="en-US">
 <head>
 	<title>
 	<?php
-	define('ROOT', __DIR__); 
-	include ROOT . '/DB/tariyaki-DB.php';
-	connectDatabase();
-	if(isset($_POST['userId']))
+	if(isset($_SESSION['userId']))
 	{	
 		
-		$userId = $_POST['userId'];
+		$userId = $_SESSION['userId'];
 		
 		echo firstNameByUserId($userId)."'s page";
 	}
-	
 	?>
-
 	</title>
 	<meta charset = "utf-8"/>
 	<meta name="author" content="Bolun Zhang, Siyu Liu, Ying Deng">
@@ -59,7 +75,7 @@
 			<h2 id = "thumb">
 			<?php
 		
-				echo '<img height = 60px src="data:image/jpg;base64,'.base64_encode(profileByUserId($_POST[$userId])).'"><br>';
+				echo '<img height = 60px src="data:image/jpg;base64,'.base64_encode(profileByUserId($_SESSION['userId'])).'"><br>';
 			?>
 
 			<h2>
@@ -67,8 +83,8 @@
 		<div id ="bioBlock">
 			<p id = "bio">
 			<?php
-			echo firstNameByUserId($_POST[$userId]).":";
-			echo userInfoByUserId($_POST[$userId])."</br>";
+			echo firstNameByUserId($_SESSION['userId']).":";
+			echo userInfoByUserId($_SESSION['userId'])."</br>";
 			?>
 			</p>
 		</div>
@@ -84,7 +100,7 @@
 		<div id= "friendListWrap">
 			<?php
 			
-			//if(isset($_POST['userId']))
+			//if($_SESSION['userId']))
 			//{	
 				
 				$arr = resOfFriendByUserId(1);
@@ -133,7 +149,11 @@
 			
 			<!--Post list-->
 			<div id = "postListWrap">
-			
+				<ul>
+					<?php
+						
+					?>
+				</ul>
 			</div>			
 		</div> 
 		<!--Comment list-->

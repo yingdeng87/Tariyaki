@@ -15,6 +15,7 @@
 	}
 	
 	?>
+
 	</title>
 	<meta charset = "utf-8"/>
 	<meta name="author" content="Bolun Zhang, Siyu Liu, Ying Deng">
@@ -32,7 +33,23 @@
 </head>
 
 <body>
-
+	<?php
+	//add new post to user post list
+	if(isset($_FILES['musicUpload'])&&isset($_POST['postText'])){
+	echo "it works";
+	//addMusic(2, "music", $_FILES['musicUpload']['tmp_name']);
+	echo $_FILES['musicUpload']['tmp_name'];
+	 move_uploaded_file($_FILES["musicUpload"]["tmp_name"],
+      "music/" . $_FILES["musicUpload"]["name"]);
+	//$row = musicIdByUserId(2);
+	//foreach($row as $p)
+	//echo $p."<br>";
+	//addArticle(2, $musicId, null, null, null, $_POST['postText']);
+	}
+	else
+	echo "no";
+	
+	?>
 	<!-- Top wrap include thumb photo, logo, searching bar and log out button-->
 
 	<h1 id = "logo">Tariyaki</h1>
@@ -42,7 +59,7 @@
 			<h2 id = "thumb">
 			<?php
 		
-				echo '<img height = 60px src="data:image/jpg;base64,'.base64_encode(profileByUserId(2)).'"><br>';
+				echo '<img height = 60px src="data:image/jpg;base64,'.base64_encode(profileByUserId($_POST[$userId])).'"><br>';
 			?>
 
 			<h2>
@@ -50,8 +67,8 @@
 		<div id ="bioBlock">
 			<p id = "bio">
 			<?php
-			echo firstNameByUserId(2).":";
-			echo userInfoByUserId(2)."</br>";
+			echo firstNameByUserId($_POST[$userId]).":";
+			echo userInfoByUserId($_POST[$userId])."</br>";
 			?>
 			</p>
 		</div>
@@ -71,21 +88,25 @@
 			//{	
 				
 				$arr = resOfFriendByUserId(1);
+				echo"<form action='friend.php' method='post'>";
 				echo"<ul>";
 				while($row = mysql_fetch_array($arr,MYSQL_NUM))
 				{
 					$i=1;
-					echo '<li>';echo '<img height = 20px src="data:image/jpg;base64,'.base64_encode(profileByUserId(2)).'">';
-					echo "<a href>";
+					echo '<li>';
+					echo '<img height = 20px src="data:image/jpg;base64,'.base64_encode(profileByUserId(2)).'">';
+					echo "<input  type =submit name=friend value='";
 					foreach($row as $p)
 					{
 						if($i==3||$i==4)
 							echo $p." ";
 						$i++;
 					}
-					echo "</a></li><br>";
+					echo"'>";
+					
 				}
-				echo"</ul>";
+				
+				echo"</form>";
 			//}
 			?>
 		</div>
@@ -94,20 +115,20 @@
 		<div id="postWrap">
 			<!-- the first item is a text area for user to input information-->
 			<div id = "postInputWrap">
+				<form id="postForm" action='main.php' onsubmit="return dataCheck(this)" method='post' enctype="multipart/form-data">
 				<div id ="textAreaWrap">
-					<input id = "textArea" type = "textArea">
+					<input id = "textArea" type = "textArea" name="postText">
 					
 					</input>
 				</div>
 				<div id = "buttonList">
-				<form id="postForm" action='main.php' onsubmit="return dataCheck(this)" method='post'>
+				
 					<ul>
-						<li class="postButton"><input type="file" id="uploadButton" name="upload" onchange="uploadMusic(this);"/><br></li>
-						
+						<li class="postButton"><input type="file" id="uploadButton" name="musicUpload" onchange="uploadMusic(this);"/><br></li>
 						<li class="postButton"><input type="submit" id = "submitPost" name = "post"></input></li>
 					</ul>
-				</form>
 				</div>
+				</form>
 			</div>
 			
 			<!--Post list-->

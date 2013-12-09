@@ -114,15 +114,22 @@
 				while($row = mysql_fetch_array($arr,MYSQL_NUM))
 				{
 					$i=1;
+					foreach($row as $p)
+					{
+						if($i==1)
+							$friendId = $p;
+						else if($i==2)
+							$userId = $p;
+						else if($i==3)
+							$friendFirstName = $p;
+						else
+							$firendLastName = $p;
+						$i++;
+					}
 					echo '<li>';
 					echo '<img height = 20px src="data:image/jpg;base64,'.base64_encode(profileByUserId($_SESSION['userId'])).'">';
 					echo "<input  type =submit name=friend value='";
-					foreach($row as $p)
-					{
-						if($i==3)
-							echo $p." ";
-						$i++;
-					}
+					
 					echo"'>";
 					
 					

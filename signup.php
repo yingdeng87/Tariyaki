@@ -3,208 +3,10 @@
 <head>
 		<meta charset="utf-8">
 		<title>Sign Up</title>
-		<style type="text/css">
-		html {
-			overflow-x:auto;
-			min-width: 1300px;
-		}
-		body {
-			margin: 0;
-			padding:0;
-		}
-		.p1 {
-			font:45px arial;
-			font-weight: bold;
-		}
-		.uplaod {
-			font-family: arial;
-			font-size: 14px;
-			margin-top: 10px;
-			margin-bottom: 10px;
-		}
-		#curImg {
-			text-align: center;
-			font-family: arial;
-			color:#BDBDBD;
-			border : solid 1px rgba(0,0,0,0.3);
-			/*border-color: #00ccff;*/
-
-			border-style: ridge;
-			width:150px; 
-			height:150px;
-			margin-bottom: 10px;
-			border-radius: 10px;
-		}
-		#hint {
-			font-size: 20px;
-			font-family:arial;
-		}
-		input[type="text"] {
-			font: 15px arial; 
-			padding: 1px;
-			line-height: 25px;
-			margin-top: 10px;
-			margin-bottom: 10px;
-			width: 150px;
-			border-radius: 5px;
-		}
-		input[type="password"] {
-			font: 15px arial; 
-			padding: 1px;
-			line-height: 25px;
-			margin-top: 10px;
-			margin-bottom: 10px;
-			width: 150px;
-			border-radius: 5px;
-		}
-		input[type="file"]{
-			opacity: 1;
-			margin-top: 10px;
-			border-radius: 5px;
-		}
-		textarea {
-			font: 18px arial; 
-			padding: 3px;
-			margin-top: 10px;
-			margin-bottom: 10px;
-			width: 200px;
-			border-radius: 5px;
-			border : solid 1px rgba(0,0,0,0.3);
-			resize: none;
-		}
-		form { 
-			margin: 0 auto;
-		}
-		.leftDiv {
-			float: left;
-			width: 20%;
-			margin-left: auto;
-		}
-		.rightDiv {
-			float: right;
-			width: 20%;
-		}
-		.mainFrame {
-			float:left;
-			margin-top: 5px;
-			margin-left: 5px;
-			margin-right: 5px;
-			margin-bottom: 5px;
-		}
-		.subVertical {
-			margin-left: 5px;
-			margin-right: 5px;
-			margin-bottom: 5px;
-			margin-top: 5px;
-			float: left;
-		}
-		#specialty1 {
-			float: left;
-			margin-left: 5px;
-			width: 130px;
-		}
-		#specialty2 {
-			float: left;
-			width: 80px;
-		}
-		#specialty3 {
-			float: left;
-			width: 130px;
-		}
-		#top {
-			text-shadow: 5px 5px 5px #F2F2F2;
-			font-family: "Times New Roman", Georgia, Serif;
-			font-size: 60px;
-			margin-left: 1%;
-			line-height: 100px;
-			float: left;
-		}
-		#name {
-			/*position: absolute;*/
-/*			top:0px;
-			left: 0px;*/
-			overflow: hidden;
-			background-color: #00ccff;
-			height: 100px;
-		}
-		#submit {
-			cursor: pointer;
-			width: 80px;
-			height: 30px;
-			border-radius: 5px;
-			background-color: #58D3F7;
-			color: white;
-			border-color: #58D3F7;
-			overflow: hidden;
-			float:left;
-			margin-left: 15%;
-			margin-top:  35px;
-			clear: both;
-		}
-		#reset {
-			cursor: pointer;
-			width: 80px;
-			height: 30px;
-			border-radius: 5px;
-			background-color: #58D3F7;
-			color: white;
-			border-color: #58D3F7;
-			overflow: hidden;
-			float:left;
-			margin-left: 15%;
-			margin-top:  35px;
-		}
-		#genderOption {
-			margin-bottom: 15px;
-
-		}
-		.column3 {
-			font-family: arial;
-			font-size: 20px;
-			background-color: 
-		}
-		#login {
-			cursor: pointer;
-			width: 200px;
-			height: 30px;
-			border-radius: 5px;
-			background-color: #58D3F7;
-			color: white;
-			border-color: #58D3F7;
-			overflow: hidden;
-			float:right;
-			margin-right: 20px;
-			margin-top:  35px;
-		}
-		#choosePic {
-			margin-top: 5px;
-			margin-bottom: 5px;
-			opacity: 1;
-			font-size: 12px;
-		}
-		#fold {
-			display: none;
-			overflow: hidden;
-		}
-		#wrap {
-			width: 345px;
-			border : solid 1px rgba(0,0,0,0.1);
-			margin-bottom: 20px;
-			border-radius: 10px;
-		}
-		#imgHint {
-			position: relative;
-			top:40%;
-		}
-		#logo {
-			width: 230px;
-			height: 150px;
-			float: left;
-			margin-left:10%;
-		}
-		</style>
+		<link  rel = "stylesheet" type="text/css" href="css/signup.css">
 
 		<script type="text/javascript">
+		var picOK=true;
 		    function isHidden(oDiv,ooDiv){
      			 var vDiv = document.getElementById(oDiv);
      			 vDiv.style.display = (vDiv.style.display == 'none')?'block':'none';
@@ -223,6 +25,7 @@
 						var myFile = file.files[0];
 						if(!/image\/\w+/.test(myFile.type)){ //not pic
 							alert("It's not a picture!");
+							picOK=false;
 						}else{
 							div.innerHTML = "<img id='imghead' />";
 							var img = document.getElementById("imghead");
@@ -232,6 +35,7 @@
 								img.height = rect.height;
 								img.style.marginLeft = rect.left + "px";
 								img.style.marginTop = rect.top + "px";
+								picOK=true;
 							}
 
 							var reader = new FileReader();
@@ -283,7 +87,19 @@
 				document.getElementById('name').style.pixelWidth = width;
 			}
 			function dataCheck(thisForm) {
-				if(thisForm.user.value==""||thisForm.user.value==null)
+				if(thisForm.first.value==""||thisForm.first.value==null)
+				{
+					alert("First Name must be filled out!");
+					thisForm.first.focus();
+					return false;
+				} 
+				else if(thisForm.last.value==""||thisForm.last.value==null)
+				{
+					alert("First Name must be filled out!");
+					thisForm.last.focus();
+					return false;
+				} 
+				else if(thisForm.user.value==""||thisForm.user.value==null)
 				{
 					alert("User Name must be filled out!");
 					thisForm.user.focus();
@@ -305,6 +121,10 @@
 					alert("Password must be filled out!");
 					thisForm.pass1.focus();	
 					return false;
+				}
+				else if(thisForm.pass1.value.length<6)
+				{
+					alert("Your password have to be longer than 6!");
 				}
 				else if(thisForm.pass2.value==""||thisForm.pass2.value==null)
 				{
@@ -336,12 +156,54 @@
 					thisForm.profilePic.focus();
 					return false;
 				}
+				else if(!picOK)
+				{
+					alert("Please upload proper profile Picture!");
+					return false;
+				}
 				else 
 					return true;
 			}
 		</script>
 	</head>
 	<body onLoad=setHead();>
+		<?php
+			include 'DB/Tariyaki-DB.php';
+			//set error reporting level at 0
+			// error_reporting(0);
+			// session_start();
+			$conn = connectDatabase();
+			mysql_select_db($db,$conn);
+			if(isset($_POST["submit"]))
+			{
+				$username = $_POST["user"];
+				$userInfo = $_POST["selfIntro"];
+				if ($_FILES['profilePic']['size']) {
+					$profilename = $_FILES["profilePic"]["name"];
+					$arr = explode('.', $profilename);
+					$name = $arr[0];
+					$fp = fopen($_FILES['profilePic']['tmp_name'],'rb');
+					$type = $_FILES['profilePic']['type'];
+				}
+				$image = addslashes(fread(($fp), filesize($_FILES['profilePic']['tmp_name'])));
+				$profile = $image;
+				$email = $_POST["email"];
+				$psw = $_POST["pass1"];
+				$firstname = $_POST["first"];
+				$lastname = $_POST["last"];
+				$psw = sha1($psw);
+				$sql="select username from login where username='$username'";
+				$query=mysql_query($sql);
+				$rows=mysql_num_rows($query);
+				if ($rows>0) {
+					echo "<script type='text/javascript'>alert('User Existed, enter again!');location='javascript:history.back()';</script>";
+				} else{
+					addUser($firstname,$lastname,null,$userInfo,$profile,$email,$username,$psw);
+					echo "<script type='text/javascript'>alert('Successfully Registered!!!');location.href='login.php';</script>"; 
+				}
+			}
+
+		?>
 		<div id="name">
 			<img id='logo' src='img/logo.png'/>
 			<label id="top">Tariyaki</label>
@@ -350,11 +212,13 @@
 		<div class="leftDiv"><p></p></div>
 		<div class = "mainFrame" style="margin-left:100px;">
 		<p class = "p1">Sign Up</p>
-		<FORM id="signUp" action='login.php' onsubmit="return dataCheck(this)" method='post'>
+		<FORM id="signUp" action='signup.php' onsubmit="return dataCheck(this)" method='post' enctype="multipart/form-data">
 			<div class="subVertical">
+			<input type='text' placeholder="Enter First Name ..." id="first name" name="first"/>
+			<input type='text' placeholder="Enter Last Name ..." id="last name" name="last"/><br>
 			<input type='text' placeholder="Enter User Name ..." id="user name" name='user'/><br>
 			<input type = 'text' placeholder="Email Address ..." id="email" name = 'email'/><br>
-			<input placeholder="Enter Password ..." type="password" id="password1" name='pass1'/><br>
+			<input placeholder="Enter Password ..." type="password" id="password1" name='pass1'/>
 			<input placeholder="Confirm Password ..." type="password" id="password2" name = 'pass2'/><br>
 			<textarea rows="6" cols="30" placeholder="Self Introduction ..." id="selfIntro" name='selfIntro'></textarea><br>
 			</div>
@@ -407,7 +271,7 @@
 			</div>
 		</FORM>
 		<p>
-		<input form ="signUp" type = "Submit" id="submit">
+		<input form ="signUp" type = "Submit" id="submit" name="submit">
 		<input form ="signUp" type = "Reset" id="reset" value = "reset"/>
 		</p>
 		</div>

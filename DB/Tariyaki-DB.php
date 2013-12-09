@@ -30,8 +30,9 @@
 		    echo mysql_error();
 			exit;
 		}
-		$size = filesize($profile);
-		$img=addslashes(fread(fopen($profile, "r"), $size));
+		// $size = filesize($profile);
+		// $img=addslashes(fread(fopen($profile, "r"), $size));
+		$img = $profile;
 		$sql = "insert into user(firstName, familyName, dob, userInfo, profile, email) values ('" . $firstName . "', '" . $familyName . "', '" . $dob . "', '" . $userInfo . "', '" . $img . "', '" . $email . "' );"; 
 		if (! $res=mysql_query($sql, $lkid)) 
 		{

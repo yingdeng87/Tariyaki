@@ -1,7 +1,8 @@
 <?php
     include 'Tariyaki-DB.php';
 	//addArticle($userId, $musicId, $videoId, $pictureId, $title, $content)
-	addArticle(4, 1, null, null, null, "null content");
+	//addComment($articleId, $userId, $content)
+	addComment(1, 3,"test");
 	//$link = connectDatabase();
 	//addUser("Daniel", "Zhang",  "1991-01-01", "Talented", "xiaolan.jpg", "dzbl", "123qwe");
 	//addUser("Dan", "Diaoren",  "1999-09-09", "fei chang diao", "xiaolan.jpg", "diao", "1123456");

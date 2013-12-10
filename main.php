@@ -5,12 +5,14 @@
 		include ROOT . '/DB/tariyaki-DB.php';
 		connectDatabase();
 		session_start();
-		
+		$_POST['userId']=addSlashes($_POST['userId']);
 		$_SESSION['userId'] = $_POST['userId'];
 		echo $_POST['userId'];
 	}
 	else if(isset($_POST['user'])&&isset($_POST['pass1']))
 	{
+		$_POST['user']=addSlashes($_POST['user']);
+		$_POST['pass1']=addSlashes($_POST['pass1']);
 		define('ROOT', __DIR__); 
 		include ROOT . '/DB/tariyaki-DB.php';
 		connectDatabase();
@@ -69,19 +71,33 @@
 	//add new post to user post list
 	if(isset($_FILES['musicUpload'])&&isset($_POST['postText'])){
 	echo "it works";
-	$what = move_uploaded_file($_FILES["musicUpload"]["tmp_name"],
+	
+	$allowedExts = array("mp3");
+	$temp = explode(".", $_FILES["musicUpload"]["name"]);
+	$extension = end($temp);
+	echo $extension;
+	echo in_array($extension, $allowedExts);
+	if (($_FILES["musicUpload"]["type"] == "audio/mp3")&&($_FILES["musicUpload"]["size"] < 100000)&& in_array($extension, $allowedExts))
+	{
+	
+	move_uploaded_file($_FILES["musicUpload"]["tmp_name"],
       "./upload/".$_FILES["musicUpload"]["name"]);
-	//if(!$what)
-	//echo " shit";
-	echo "upload path = ".$_FILES['musicUpload']['name'];
+	//echo "upload path = ".$_FILES['musicUpload']['name'];
 	$musicLink = "upload/" . $_FILES["musicUpload"]["name"];
 	$musicId = addMusic($_SESSION['userId'],$_FILES['musicUpload']['name'], $musicLink);
-	echo "uploaded successive musicId = ".$musicId;
+	//echo "uploaded successive musicId = ".$musicId;
+	}
+	else
+	{
+		$musicId = addMusic($_SESSION['userId'],'null','null');
+	}
 	//addArticle($userId, $musicId, $videoId, $pictureId, $title, $content)
 	if(isset($_POST['postText']))
 	{
 	if($_POST['postText']=='')
 	$_POST['postText'] = ' ';
+	$_POST['postText']=addSlashes($_POST['postText']);
+	$_POST['textTitle']=addSlashes($_POST['textTitle']);
 	addArticle($_SESSION['userId'], $musicId, 'null','null',$_POST['textTitle'],$_POST['postText']);
 	}
 	else
@@ -223,6 +239,12 @@
 							echo"<p>";
 							echo dateByArticleId($p);
 							echo"</p><br>";
+							echo"<form action = 'main.php' method = 'post'>";
+							echo"<input type = 'submit' name = 'commentSubmit' value = 'comment'>";
+							$userId = $_SESSION['userId'];
+							echo"<input hidden type = 'text' name = 'userId' value = '$userId'>";
+							echo"<input hidden type = 'text' name = 'articleId' value = '$p'>";
+							echo"</form>";
 							echo"</li>";
 						}
 					?>
@@ -231,7 +253,43 @@
 		</div> 
 		<!--Comment list-->
 			<div id = "commentWrap">
+			<ul>
+			<?php
+			if(isset($_POST['articleId']))
+			{
+				if(isset($_POST['addComment']))
+				{
+					$_POST['addComment'] = addSlashes($_POST['addComment']);
+					addComment($_POST['articleId'],$_SESSION['userId'],$_POST['addComment']);
+				}
+				
+				$_POST['articleId'] = addSlashes($_POST['articleId']);
+				$commentId = commentIdByArticleId($_POST['articleId']);
+				foreach($commentId as $p)
+				{
+					$comment = contentByCommentId($p);
+					echo"<li>";
+					echo"<p>";
+					echo"$comment";
+					echo"</p>";
+					echo"</li>";
+				}
+				echo'<form action = main.php method = post>';
+				echo"<input type = text name = addComment>";
+				$userId = $_SESSION['userId'];
+				echo"<input hidden type = text name = userId value = $userId />";
+				$articleId = $_POST['articleId'];
+				echo"<input hidden type = text name = articleId value = $articleId />";
+				echo"<input type = submit name = add value = 'say' />";
+				echo'</form>';
+				
 			
+			}
+			
+			
+			
+			?>
+			</ul>
 			</div>
 		</div>
 		

@@ -175,6 +175,25 @@
 		mysql_close($lkid);
 		return $id;
 	}
+	function addComment($articleId, $userId, $content)
+	{
+	    global $db;
+		$lkid=connectDatabase();
+		if (! $succ = mysql_select_db($db)) 
+		{
+		    echo mysql_error();
+			exit;
+		}
+		$sql = "insert into comments(articleId, userId,content, date) 
+		values (" . $articleId. ", " . $userId . ", '" . $content . "', now());"; 
+		if (! $res=mysql_query($sql, $lkid)) 
+		{
+			echo mysql_error(). " : line191 " . "</br>";
+		}
+		$id = mysql_insert_id($lkid);
+		mysql_close($lkid);
+		return $id;
+	}
 	function numOfUserName($userName)
 	{
 	    global $db;
@@ -695,7 +714,7 @@
 		mysql_close($lkid);
 		return $uid;
 	}
-	function contentByCommnentId($commentId)
+	function contentByCommentId($commentId)
 	{
 	    global $db;
 		$lkid=connectDatabase();
@@ -1362,5 +1381,12 @@
 			echo mysql_error(). " : line1220  ";
 		}
 		mysql_close($lkid);
+	}
+	
+	function stripTagAddSlashes($text)
+	{
+		$text = strip_tags($text);
+		$text = addSlashes($text);
+		return $text;
 	}
 ?>

@@ -1,10 +1,21 @@
 <?php
-	if(isset($_POST['user'])&&isset($_POST['pass1']))
+	if(isset($_POST['userId']))
 	{
 		define('ROOT', __DIR__); 
 		include ROOT . '/DB/tariyaki-DB.php';
 		connectDatabase();
 		session_start();
+		
+		$_SESSION['userId'] = $_POST['userId'];
+		echo $_POST['userId'];
+	}
+	else if(isset($_POST['user'])&&isset($_POST['pass1']))
+	{
+		define('ROOT', __DIR__); 
+		include ROOT . '/DB/tariyaki-DB.php';
+		connectDatabase();
+		session_start();
+		$_SESSION['userId'] = userIdByUserNameAndPassword($_POST['user'], sha1($_POST['pass1']));
 		if(userIdByUserNameAndPassword($_POST['user'], sha1($_POST['pass1']))==null)
 		{
 			$url="signup.php"; 
@@ -58,19 +69,33 @@
 	//add new post to user post list
 	if(isset($_FILES['musicUpload'])&&isset($_POST['postText'])){
 	echo "it works";
-	//addMusic(2, "music", $_FILES['musicUpload']['tmp_name']);
-	echo $_FILES['musicUpload']['tmp_name'];
-	 move_uploaded_file($_FILES["musicUpload"]["tmp_name"],
-      "music/" . $_FILES["musicUpload"]["name"]);
-	//$row = musicIdByUserId(2);
-	//foreach($row as $p)
-	//echo $p."<br>";
-	//addArticle(2, $musicId, null, null, null, $_POST['postText']);
+	$what = move_uploaded_file($_FILES["musicUpload"]["tmp_name"],
+      "./upload/".$_FILES["musicUpload"]["name"]);
+	//if(!$what)
+	//echo " shit";
+	echo "upload path = ".$_FILES['musicUpload']['name'];
+	$musicLink = "upload/" . $_FILES["musicUpload"]["name"];
+	$musicId = addMusic($_SESSION['userId'],$_FILES['musicUpload']['name'], $musicLink);
+	echo "uploaded successive musicId = ".$musicId;
+	//addArticle($userId, $musicId, $videoId, $pictureId, $title, $content)
+	if(isset($_POST['postText']))
+	{
+	if($_POST['postText']=='')
+	$_POST['postText'] = ' ';
+	addArticle($_SESSION['userId'], $musicId, 'null','null',$_POST['textTitle'],$_POST['postText']);
+	}
+	else
+	{
+	$_POST['postText'] = ' ';
+	addArticle($_SESSION['userId'], $musicId, 'null',$_POST['textTitle'],$_POST['postText']);
+	}
+	
 	}
 	else
 	echo "no";
 	
 	?>
+
 	<!-- Top wrap include thumb photo, logo, searching bar and log out button-->
 
 	<h1 id = "logo">Tariyaki</h1>
@@ -133,6 +158,8 @@
 					echo "$friendFirstName $firendLastName";
 					echo"'>";
 					echo "<input hidden type = text name = friendId value = $friendId>";
+					$userId = $_SESSION['userId'];
+					echo "<input hidden type = text name = userId value = $userId>";
 					echo"</form>";
 					
 				}
@@ -147,7 +174,15 @@
 			<!-- the first item is a text area for user to input information-->
 			<div id = "postInputWrap">
 				<form id="postForm" action='main.php' onsubmit="return dataCheck(this)" method='post' enctype="multipart/form-data">
+				<?php
+				if(isset($_POST['userId']))
+				$userId = $_POST['userId'];
+				echo "<input hidden type = text name = userId value = $userId />"
+				?>
+
+					
 				<div id ="textAreaWrap">
+					<input id = "textTitle" type = text name = 'textTitle' />
 					<input id = "textArea" type = "textArea" name="postText">
 					
 					</input>
@@ -166,7 +201,30 @@
 			<div id = "postListWrap">
 				<ul>
 					<?php
-						
+						$arr=articleIdByUserId($_SESSION['userId']);
+						foreach($arr as $p)
+						{
+							echo"<li>";
+							//post title
+							echo"<p>";
+							echo titleByArticleId($p);
+							echo"</p><br><hr>";
+							//post music
+							$musicId=musicIdByArticleId($p);
+							$musicLink = musicLinkByMusicId($musicId);
+							echo "<audio controls>";
+							echo "<source src='$musicLink' type='audio/mpeg'><embed height='50' width='100' src='$musicLink'>";
+							echo "</audio><br><hr>";
+							//post content
+							echo"<p>";
+							echo contentByArticleId($p);
+							echo"</p><br>";
+							//post date
+							echo"<p>";
+							echo dateByArticleId($p);
+							echo"</p><br>";
+							echo"</li>";
+						}
 					?>
 				</ul>
 			</div>			

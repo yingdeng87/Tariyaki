@@ -1,5 +1,7 @@
 <?php
     include 'Tariyaki-DB.php';
+	//addArticle($userId, $musicId, $videoId, $pictureId, $title, $content)
+	addArticle(4, 1, null, null, null, "null content");
 	//$link = connectDatabase();
 	//addUser("Daniel", "Zhang",  "1991-01-01", "Talented", "xiaolan.jpg", "dzbl", "123qwe");
 	//addUser("Dan", "Diaoren",  "1999-09-09", "fei chang diao", "xiaolan.jpg", "diao", "1123456");
@@ -100,7 +102,7 @@
 		//addFriend(2, 4, firstNameByUserId(2), familyNameByUserId(2));
 		//addFriend(2, 3, firstNameByUserId(2), familyNameByUserId(2));
 		
-		$arr = friendIdByUserId(2);
+/*		$arr = friendIdByUserId(2);
 		for($i=0;$i<count($arr);$i++)
 	{
 	    echo $arr[$i] . "</br>";
@@ -225,6 +227,7 @@
 	addSpecialty(5, true, true, true, true, true, true, 
 	true, "false", true, true, "false", true, "false", true, true, true, 
 	true, true, "false");*/
+	/*
 	deleteUserByUserId(1);
 	echo "</br>";
 	echo "</br>";
@@ -233,5 +236,5 @@
 	echo "</br>";
 	echo "</br>";
 	echo "</br>";
-	echo "</br>";
+	echo "</br>";*/
 ?>

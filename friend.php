@@ -1,9 +1,19 @@
 <?php
-	if(isset($_POST['friendId']))
-	{
+	if(isset($_POST['friendId'])&&isset($_POST['userId']))
+	{	
 		define('ROOT', __DIR__); 
 		include ROOT . '/DB/tariyaki-DB.php';
 		connectDatabase();
+		$friendFirstName = firstNameByUserId($_POST['friendId']);
+		$friendFamilyName = familyNameByUserId($_POST['friendId']);
+		echo $_POST['userId'];
+		if(isset($_POST['add']))
+		{
+		if($_POST['add']==1)
+		{
+			addFriend($_POST['friendId'], $_POST['userId'], $friendFirstName, $friendFamilyName);
+		}
+		}
 		
 		session_start();
 		$_SESSION['userId'] = $_POST['friendId'];
@@ -93,6 +103,13 @@
             <li class="topButton"><input type = text></input></li>
             <li class="topButton"><input type="button" title="search" value="search" href=""></input></li>
             <li class="topButton"><input type="button" title="logout" value="logout" href=""></input></li>
+			<form action='friend.php' method='post'>
+			<li class="topButton"><input type="submit" title="addFriend" value="favourite">
+			<input hidden type = text name = friendId value = <?php echo $_POST['friendId']?> />
+			<input hidden type = text name = userId value = <?Php echo $_POST['userId']?> />
+			<input hidden type = text name = add value = 1 />
+			</li>
+			</form>
         </ul>
 	</div>
 	<!--Content wrap include friend list post list and comment list-->
@@ -125,9 +142,9 @@
 					}
 					echo '<li>';
 					echo '<img height = 20px src="data:image/jpg;base64,'.base64_encode(profileByUserId($friendId)).'">';
-					echo "<input  type =text name=friend value='";
+					echo "<button>";
 					echo "$friendFirstName $firendLastName";
-					echo"'>";
+					echo"</button>";
 				
 				
 					

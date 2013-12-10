@@ -117,12 +117,21 @@ body
 #postListWrap
 {
 	overflow-y: scroll;
-	height:585px;
+	height:545px;
 }
 #friendPostListWrap
 {
 	overflow-y: scroll;
 	height:800px;
+}
+#textTitle
+{
+	margin:10px;
+	
+	width:95%;
+
+	border-style:solid;
+	border-color:red;
 }
 #textArea
 {

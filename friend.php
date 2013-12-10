@@ -4,14 +4,20 @@
 		define('ROOT', __DIR__); 
 		include ROOT . '/DB/tariyaki-DB.php';
 		connectDatabase();
+		$_POST['friendId'] = stripTagAddSlashes($_POST['friendId']);
+		$_POST['userId'] = stripTagAddSlashes($_POST['userId']);
 		$friendFirstName = firstNameByUserId($_POST['friendId']);
 		$friendFamilyName = familyNameByUserId($_POST['friendId']);
 		echo $_POST['userId'];
-		if(isset($_POST['add']))
+		if(isset($_POST['friendChoice']))
 		{
-		if($_POST['add']==1)
+		if($_POST['friendChoice']==1)
 		{
 			addFriend($_POST['friendId'], $_POST['userId'], $friendFirstName, $friendFamilyName);
+		}
+		else if($_POST['friendChoice']==0)
+		{
+			deleteFriendByUserId($_POST['friendId']);
 		}
 		}
 		
@@ -100,14 +106,31 @@
 			</p>
 		</div>
 		<ul id="nav">
-            <li class="topButton"><input type = text></input></li>
-            <li class="topButton"><input type="button" title="search" value="search" href=""></input></li>
-            <li class="topButton"><input type="button" title="logout" value="logout" href=""></input></li>
+			<form action = main.php method = post>
+            <li class="topButton"><input type=submit name = go title="go back" value="back to my page"></input></li>
+			<input hidden type =text name = userId value = <?php echo $_POST['userId']?> />
+			</form>
+			<form action = login.php method = post>
+			<li class="topButton"><input type=submit title="logout" name = logout value="logout"></input></li>
+			</form>
 			<form action='friend.php' method='post'>
-			<li class="topButton"><input type="submit" title="addFriend" value="favourite">
+			<?php
+			$friendArr = friendIdByUserId($_POST['userId']);
+			if(in_array($_POST['friendId'],$friendArr))
+			{
+				echo "<li class='topButton'><input type='submit' title='deleteFriend' value='ignore'>";
+				echo "<input hidden type = text name = friendChoice value = 0 />";
+			}
+			else
+			{
+				echo "<li class='topButton'><input type='submit' title='addFriend' value='favourite'>";
+				echo "<input hidden type = text name = friendChoice value = 1 />";
+			}
+			
+			
+			?>
 			<input hidden type = text name = friendId value = <?php echo $_POST['friendId']?> />
 			<input hidden type = text name = userId value = <?Php echo $_POST['userId']?> />
-			<input hidden type = text name = add value = 1 />
 			</li>
 			</form>
         </ul>

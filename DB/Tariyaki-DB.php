@@ -1387,6 +1387,7 @@
 	{
 		$text = strip_tags($text);
 		$text = addSlashes($text);
+		trim(mysql_real_escape_string($text));
 		return $text;
 	}
 ?>

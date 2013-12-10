@@ -145,9 +145,7 @@ AutoComplete.prototype={
             }else if(this.index==length){
                 this.obj.value=this.search_value;
 				 
-				<?php
-				    
-				?>
+				
             }
             this.changeClassname(length);
         }
@@ -210,16 +208,17 @@ AutoComplete.prototype={
 	<?php
 	//add new post to user post list
 	if(isset($_FILES['musicUpload'])&&isset($_POST['postText'])){
-	echo "it works";
+
 	
 	$allowedExts = array("mp3");
 	$temp = explode(".", $_FILES["musicUpload"]["name"]);
 	$extension = end($temp);
 	echo $extension;
 	echo in_array($extension, $allowedExts);
-	if (($_FILES["musicUpload"]["type"] == "audio/mp3")&&($_FILES["musicUpload"]["size"] < 100000)&& in_array($extension, $allowedExts))
+	echo $_FILES["musicUpload"]["size"];
+	if (($_FILES["musicUpload"]["type"] == "audio/mp3")&&($_FILES["musicUpload"]["size"] < 10000000)&& in_array($extension, $allowedExts))
 	{
-	
+
 	move_uploaded_file($_FILES["musicUpload"]["tmp_name"],
       "./upload/".$_FILES["musicUpload"]["name"]);
 	//echo "upload path = ".$_FILES['musicUpload']['name'];
@@ -230,6 +229,7 @@ AutoComplete.prototype={
 	else
 	{
 		$musicId = addMusic($_SESSION['userId'],'null','null');
+		echo"<script>alert('Failer to upload music, acceptable file should be .mp3 and smaller than 10MB and ');</script>";
 	}
 	//addArticle($userId, $musicId, $videoId, $pictureId, $title, $content)
 	if(isset($_POST['postText']))
@@ -248,7 +248,7 @@ AutoComplete.prototype={
 	
 	}
 	else
-	echo "no";
+
 	
 	?>
 
@@ -281,6 +281,7 @@ AutoComplete.prototype={
 			<form action = "friend.php" method = "post">
 			
 			<input hidden type= text name="userId" value =<?php $userId = $_SESSION['userId'];echo $userId;?> />
+			
 			<input hidden type=text name="friendId" id="friendId" value="" >
             <li class="topButton"><input type="submit" title="search" value="goto" href=""></input></li>
 			</form>

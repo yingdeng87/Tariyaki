@@ -4,20 +4,31 @@
 		define('ROOT', __DIR__); 
 		include ROOT . '/DB/tariyaki-DB.php';
 		connectDatabase();
+		$friendArr = friendIdByUserId($_POST['userId']);
+		if(!in_array($_POST['friendId'],$friendArr))
+		{
+			echo "<script type='text/Javascript'>
+			alert('user does not exist, need to login');
+			location.href='login.php';</script>"; 
+		}
+		
 		$_POST['friendId'] = stripTagAddSlashes($_POST['friendId']);
 		$_POST['userId'] = stripTagAddSlashes($_POST['userId']);
 		$friendFirstName = firstNameByUserId($_POST['friendId']);
 		$friendFamilyName = familyNameByUserId($_POST['friendId']);
-		echo $_POST['userId'];
+
 		if(isset($_POST['friendChoice']))
 		{
 		if($_POST['friendChoice']==1)
 		{
 			addFriend($_POST['friendId'], $_POST['userId'], $friendFirstName, $friendFamilyName);
+			echo "<script>alert('you guys are friends now')</script>";
 		}
 		else if($_POST['friendChoice']==0)
 		{
 			deleteFriendByUserId($_POST['friendId']);
+			echo "<script>alert('you guys are no longer friends')</script>";
+			
 		}
 		}
 		
@@ -41,6 +52,8 @@
 <head>
 	<title>
 	<?php
+
+	
 	if(isset($_SESSION['userId']))
 	{	
 		
@@ -67,6 +80,7 @@
 
 <body>
 	<?php
+
 	//add new post to user post list
 	if(isset($_FILES['musicUpload'])&&isset($_POST['postText'])){
 	echo "it works";
@@ -186,15 +200,105 @@
 			<!--Post list-->
 			<div id = "friendPostListWrap">
 				<ul>
-					<?php
-						
+					
+						<?php
+						$arr=articleIdByUserId($_SESSION['userId']);
+						foreach($arr as $p)
+						{
+							echo"<li>";
+							//post title
+							echo"<p>";
+							echo titleByArticleId($p);
+							echo"</p><br><hr>";
+							//post music
+							$musicId=musicIdByArticleId($p);
+							$musicLink = musicLinkByMusicId($musicId);
+							echo "<audio controls>";
+							echo "<source src='$musicLink' type='audio/mpeg'><embed height='50' width='100' src='$musicLink'>";
+							echo "</audio><br><hr>";
+							//post content
+							echo"<p>";
+							echo contentByArticleId($p);
+							echo"</p><br>";
+							//post date
+							echo"<p>";
+							echo dateByArticleId($p);
+							echo"</p><br>";
+							echo"<form action = 'friend.php' method = 'post'>";
+							echo"<input type = 'submit' name = 'commentSubmit' value = 'comment'>";
+							$friendId = $_SESSION['userId'];
+							$userId = $_POST['userId'];
+							
+							echo"<input hidden type = 'text' name = 'friendId' value = '$friendId'>";
+							echo"<input hidden type = 'text' name = 'userId' value = '$userId'>";
+							echo"<input hidden type = 'text' name = 'articleId' value = '$p'>";
+							echo"</form>";
+							
+							echo"<form action = 'friend.php' method = 'post'>";
+							echo"<input type = 'submit' name = 'share' value = 'share'>";
+							echo"<input hidden type = 'text' name = 'friendId' value = '$friendId'>";
+							echo"<input hidden type = 'text' name = 'userId' value = '$userId'>";
+							echo"<input hidden type = 'text' name = 'articleId' value = '$p'>";
+							echo"</form>";
+							echo"</li>";
+							
+						}
+							if(isset($_POST['share']))
+							{
+								$_POST['articleId']=stripTagAddSlashes($_POST['articleId']);
+
+								$title = titleByArticleId($_POST['articleId']);
+								$title = $title." (from"." ".firstNameByUserId($_SESSION['userId'])." ".familyNameByUserId($_SESSION['userId']).")";						
+								$content = contentByArticleId($_POST['articleId']);
+								$musicId=musicIdByArticleId($_POST['articleId']);
+								addArticle($userId, $musicId, 'null', 'null', $title, $content);
+								echo "<script>alert('shared')</script>";
+							}
+					
 					?>
 				</ul>
 			</div>			
 		</div> 
 		<!--Comment list-->
 			<div id = "commentWrap">
+			<?php
+			if(isset($_POST['articleId']))
+			{
+				if(isset($_POST['addComment']))
+				{
+					$_POST['addComment'] = stripTagAddSlashes($_POST['addComment']);
+					addComment($_POST['articleId'],$_SESSION['userId'],$_POST['addComment']);
+				}
+				
+				$_POST['articleId'] = stripTagAddSlashes($_POST['articleId']);
+				$commentId = commentIdByArticleId($_POST['articleId']);
+				foreach($commentId as $p)
+				{
+					$comment = contentByCommentId($p);
+					echo"<li>";
+					echo"<p>";
+					echo"$comment";
+					echo"</p>";
+					echo"</li>";
+				}
+				echo'<form action = friend.php method = post>';
+				echo"<input type = text name = addComment>";
+				$userId = $_POST['userId'];
+				$friendId = $_SESSION['userId'];
+
+				echo"<input hidden type = text name = userId value = $userId />";
+				echo"<input hidden type = text name = friendId value = $friendId />";
+				$articleId = $_POST['articleId'];
+				echo"<input hidden type = text name = articleId value = $articleId />";
+				echo"<input type = submit name = add value = 'say' />";
+				echo'</form>';
+				
 			
+			}
+			
+			
+			
+			?>
 			</div>
 		</div>
 		

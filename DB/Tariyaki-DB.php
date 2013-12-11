@@ -1382,6 +1382,30 @@
 		}
 		mysql_close($lkid);
 	}
+	function findAllUserId()
+	{
+	    
+	    global $db;
+		$lkid=connectDatabase();
+		if (! $succ = mysql_select_db($db))
+		{
+		    echo mysql_error();
+			exit;
+		}
+		$sql="select userId from login;";
+		if (! $res=mysql_query($sql , $lkid)) 
+		{
+			echo mysql_error(). " : line660  ";
+		}
+		$cid = Array();
+		while($array = mysql_fetch_row($res))
+		{
+			$cid[] = $array[0];				
+		}
+		mysql_close($lkid);
+		return $cid;
+		
+	}
 	
 	function stripTagAddSlashes($text)
 	{

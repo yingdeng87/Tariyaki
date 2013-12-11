@@ -4,12 +4,14 @@
 		define('ROOT', __DIR__); 
 		include ROOT . '/DB/tariyaki-DB.php';
 		connectDatabase();
-		$friendArr = friendIdByUserId($_POST['userId']);
+		$friendArr = findAllUserId();
+		
 		if(!in_array($_POST['friendId'],$friendArr))
 		{
 			echo "<script type='text/Javascript'>
 			alert('user does not exist, need to login');
-			location.href='login.php';</script>"; 
+			</script>";
+			
 		}
 		
 		$_POST['friendId'] = stripTagAddSlashes($_POST['friendId']);

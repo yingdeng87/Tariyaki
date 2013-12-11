@@ -22,7 +22,21 @@
 		<!--friend list-->
 		<div id= "friendListWrap">
 		<?php
+			if(isset($_POST['deleteUser']))
+					{
+						deleteUserByUserId($_POST['userId']);
+					}
 			echo"<ul>";
+			
+			if(isset($_POST['deletePost']))
+			{
+				deleteArticleByArticleId($_POST['articleId']);
+			}
+			
+			if(isset($_POST['deleteCommentButton']))
+			{
+				deleteCommentByCommentId($_POST['commentId']);
+			}
 			
 				
 				$arr = findAllUserId();
@@ -34,7 +48,7 @@
 				
 				while($row = mysql_fetch_array($arrUser,MYSQL_NUM))
 				{
-					echo"<form action='admin.php' method='post'>";
+					
 					$i=1;
 					foreach($row as $p)
 					{
@@ -52,14 +66,24 @@
 		
 					//echo '<img height = 20px src="data:image/jpg;base64,'.base64_encode(profileByUserId($friendId)).'">';
 					//echo "<input  type =submit name=friend value='";
-					echo"<form action = action.php method = post>";
 					$value = "\"".$userId." ".$firstName." ".$lastName."\"";
-					echo "<input type=submit name='check' value = $value />";
+					echo"<form action = admin.php method = post>";
 					echo "<input hidden type = text name = userId value = $userId />";
-					echo "<input type=submit name='checkComment' value = 'postList' />";
+					echo "<input type=submit name='check' value = $value />";
+					echo"</form>";
+					
+					echo"<form action = admin.php method = post>";
+					echo "<input hidden type = text name = userId value = $userId />";
 					echo "<input type=submit name='deleteUserButton' value = 'delete' />";
 					echo "<input hidden type = text name = 'deleteUser' value = 1 />";
 					echo"</form>";
+					
+					echo"<form action = admin.php method = post>";
+					echo "<input hidden type = text name = userId value = $userId />";
+					echo "<input type=submit name='checkComment' value = 'postList' />";
+					echo"</form>";
+					
+					
 					
 					//echo"'>";
 					//echo "<input hidden type = text name = friendId value = $friendId>";
@@ -110,12 +134,22 @@
 							echo"</p><br>";
 							echo"<form action = 'admin.php' method = 'post'>";
 							echo"<input type = 'submit' name = 'deletePost' value = 'delete'>";
-							echo"<input type = 'submit' name = 'commentButton' value = 'comment'>";
+							
 							echo"<input hidden type = 'text' name = 'commentCheck' value = 1>";
 							$userId = $_POST['userId'];
 							echo"<input hidden type = 'text' name = 'userId' value = '$userId'>";
 							echo"<input hidden type = 'text' name = 'articleId' value = '$p'>";
 							echo"</form>";
+							
+							echo"<form action = 'admin.php' method = 'post'>";
+							echo"<input type = 'submit' name = 'commentButton' value = 'comment'>";
+							
+							echo"<input hidden type = 'text' name = 'commentCheck' value = 1>";
+							$userId = $_POST['userId'];
+							echo"<input hidden type = 'text' name = 'userId' value = '$userId'>";
+							echo"<input hidden type = 'text' name = 'articleId' value = '$p'>";
+							echo"</form>";
+							
 							echo"</li>";
 						}
 					}
@@ -145,6 +179,7 @@
 					echo"<input hidden type = text name = userId value = $userId />";
 					$articleId = $_POST['articleId'];
 					echo"<input hidden type = text name = articleId value = $articleId />";
+					echo"<input hidden type = text name = commentId value = $p />";
 					echo"<input type = submit name = deleteCommentButton value = 'delete' />";
 					echo'</form>';
 					

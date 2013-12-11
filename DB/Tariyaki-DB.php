@@ -1375,7 +1375,7 @@
 		    echo mysql_error();
 			exit;
 		}
-		$sql="delete from user where userId=" . $userId . ";";
+		$sql="delete from user where ID=" . $userId . ";";
 		if (! $res=mysql_query($sql , $lkid)) 
 		{
 			echo mysql_error(). " : line1220  ";
@@ -1428,6 +1428,57 @@ $id = mysql_insert_id($lkid);
 addLogin($id, $username, $psw);
 //mysql_close($lkid);
 }
+function deleteCommentByCommentId($CommentId)
+	{
+	    global $db;
+		$lkid=connectDatabase();
+		if (! $succ = mysql_select_db($db))
+		{
+		    echo mysql_error();
+			exit;
+		}
+		$sql="delete from comments where CommentId='" . $CommentId . "';";
+		if (! $res=mysql_query($sql , $lkid)) 
+		{
+			echo mysql_error(). " : line1220  ";
+		}
+		mysql_close($lkid);
+	}
+	function deleteCommentByArticleId($ArticleId)
+	{
+	    global $db;
+		$lkid=connectDatabase();
+		if (! $succ = mysql_select_db($db))
+		{
+		    echo mysql_error();
+			exit;
+		}
+		$sql="delete from comments where ArticleId='" . $ArticleId . "';";
+		if (! $res=mysql_query($sql , $lkid)) 
+		{
+			echo mysql_error(). " : line1220  ";
+		}
+		mysql_close($lkid);
+	}
+	function deleteArticleByArticleId($articleId)
+	{
+	    deleteCommentByArticleId($articleId);
+	    global $db;
+		$lkid=connectDatabase();
+		if (! $succ = mysql_select_db($db))
+		{
+		    echo mysql_error();
+			exit;
+		}
+		$sql="delete from article where articleId=" . $articleId . ";";
+		if (! $res=mysql_query($sql , $lkid)) 
+		{
+			echo mysql_error(). " : line1458  ";
+		}
+		mysql_close($lkid);
+	}
+
+	
 	
 	function stripTagAddSlashes($text)
 	{

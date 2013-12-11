@@ -2,10 +2,12 @@ create table USER(
 ID int NOT NULL AUTO_INCREMENT,
 firstName varchar(50) not null,
 familyName varchar(50) not null,
-dob date,
+dob date, 
 userInfo text,
 profile longblob,
 email varchar(100),
+SecurityQ varchar(200),
+SecurityA varchar(200),
 primary key(id)
 );
 
@@ -14,7 +16,7 @@ userId int not null,
 userName varchar(50),
 password varchar(50),
 primary key (userId),
-FOREIGN KEY (userId) REFERENCES USER(id)
+CONSTRAINT fk_PerOrders FOREIGN KEY (userId) REFERENCES USER(id) on delete cascade
 );
 
 create table FRIENDS(
@@ -22,8 +24,7 @@ friendId int not null,
 userId int not null,
 friendFirstName varchar(50),
 friendFamilyName varchar(50),
-FOREIGN KEY (userId) REFERENCES USER(id),
-FOREIGN KEY (friendId) REFERENCES USER(id)
+CONSTRAINT fk_FRIENDS FOREIGN KEY (friendId) REFERENCES USER(id) on delete cascade
 ); 
 
 create table MUSIC(
@@ -32,7 +33,7 @@ userId int not null,
 name varchar(50),
 link varchar(100),
 PRIMARY KEY (musicId),
-FOREIGN KEY (userId) REFERENCES USER(id)
+CONSTRAINT fk_MUSIC FOREIGN KEY (userId) REFERENCES USER(id) on delete cascade
 );
 
 create table VIDEO(
@@ -41,7 +42,7 @@ userId int not null,
 name varchar(50),
 link varchar(100),
 PRIMARY KEY (videoId),
-FOREIGN KEY (userId) REFERENCES USER(id)
+CONSTRAINT fk_VIDEO FOREIGN KEY (userId) REFERENCES USER(id) on delete cascade
 );
 
 create table PICTURE(
@@ -49,7 +50,7 @@ pictureId int not null AUTO_INCREMENT,
 userId int not null,
 picture longblob,
 PRIMARY KEY (pictureId),
-FOREIGN KEY (userId) REFERENCES USER(id)
+CONSTRAINT fk_PICTURE FOREIGN KEY (userId) REFERENCES USER(id) on delete cascade
 );
 
 create table ARTICLE(
@@ -62,10 +63,10 @@ title varchar(50),
 content longtext,
 date datetime,
 PRIMARY KEY (articleId),
-FOREIGN KEY (userId) REFERENCES USER(id), 
-FOREIGN KEY (musicId) REFERENCES MUSIC(musicId), 
-FOREIGN KEY (videoId) REFERENCES VIDEO(videoId), 
-FOREIGN KEY (pictureId) REFERENCES PICTURE(pictureId)
+CONSTRAINT fk_ARTICLE FOREIGN KEY (userId) REFERENCES USER(id) on delete cascade, 
+CONSTRAINT fk_ARTICLEMUSIC FOREIGN KEY (musicId) REFERENCES MUSIC(musicId) on delete cascade, 
+CONSTRAINT fk_ARTICLEVIDEO FOREIGN KEY (videoId) REFERENCES VIDEO(videoId) on delete cascade, 
+CONSTRAINT fk_ARTICLEPICTURE FOREIGN KEY (pictureId) REFERENCES PICTURE(pictureId) on delete cascade
 );
 
 create table COMMENTS(
@@ -75,8 +76,8 @@ userId int not null,
 content longtext, 
 date datetime, 
 PRIMARY KEY (commentId),
-FOREIGN KEY (userId) REFERENCES USER(id), 
-FOREIGN KEY (articleId) REFERENCES ARTICLE(articleId)
+CONSTRAINT fk_COMMENTS FOREIGN KEY (userId) REFERENCES USER(id) on delete cascade, 
+CONSTRAINT fk_COMMENTSARTICLE FOREIGN KEY (articleId) REFERENCES ARTICLE(articleId) on delete cascade
 );
 
 create table SPECIALTY(
@@ -101,7 +102,7 @@ Industrial bool default false,
 ChineseOpera bool default false, 
 HeavyMetal bool default false, 
 PRIMARY KEY (userId), 
-FOREIGN KEY (userId) REFERENCES USER(id)
+CONSTRAINT fk_SPECIALTY FOREIGN KEY (userId) REFERENCES USER(id) on delete cascade
 );
 
 create table ADMIN(

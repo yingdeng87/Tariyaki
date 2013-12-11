@@ -9,7 +9,7 @@
 		if(!in_array($_POST['friendId'],$friendArr))
 		{
 			echo "<script type='text/Javascript'>
-			location.href='login.php';
+			location.href='main.php';
 			alert('user does not exist, need to login');
 			</script>";
 			

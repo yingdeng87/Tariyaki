@@ -1,7 +1,34 @@
 <?php
 	define('ROOT', __DIR__); 
 	include ROOT . '/DB/tariyaki-DB.php';
-	connectDatabase();
+	
+	 if(isset($_POST['user'])&&isset($_POST['pass1']))
+	{
+		
+		
+		$_POST['user']=stripTagAddSlashes($_POST['user']);
+		$_POST['pass1']=stripTagAddSlashes($_POST['pass1']);
+		
+		connectDatabase();
+		session_start();
+		
+		if(adminIdByAdminNameAndPassword($_POST['user'], sha1($_POST['pass1']))==null)
+		{
+			$url="signup.php"; 
+			echo "<script type='text/Javascript'>alert('invalid username or password');location.href='adminLogin.php';</script>"; 
+		}
+		
+		
+	}
+	else
+	{
+		if(!isset($_POST['userId']))
+		{
+			$url="signup.php"; 
+			echo "<script type='text/Javascript'>location.href='adminLogin.php';</script>"; 
+		}
+		
+	}
 	
 ?>
 <!DOCTYPE html>

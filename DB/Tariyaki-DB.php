@@ -1477,6 +1477,46 @@ function deleteCommentByCommentId($CommentId)
 		}
 		mysql_close($lkid);
 	}
+	function adminIdByAdminNameAndPassword($adminName, $adminPassword)
+	{
+	    global $db;
+		$lkid=connectDatabase();
+		if (! $succ = mysql_select_db($db))
+		{
+		    echo mysql_error();
+			exit;
+		}
+		$sql = "select adminId from admin where adminName='" . $adminName . "' and adminPassword='" . $adminPassword . "';";
+		if (! $res=mysql_query($sql , $lkid)) 
+		{
+			echo mysql_error(). " : line1610  ";
+		}
+		$un = 0;
+		while($array = mysql_fetch_row($res))
+		{
+			$un = $array[0];			
+		}
+		mysql_close($lkid);
+		return $un;
+	}
+	
+	function addAdmin($adminName, $adminPassword)
+	{
+	    global $db;
+		$lkid=connectDatabase();
+		if (! $succ = mysql_select_db($db)) 
+		{
+		    echo mysql_error();
+			exit;
+		}
+		$sql = "insert into admin(adminName, adminPassword) values ('" . $adminName . "', '" . $adminPassword . "' );"; 
+		if (! $res=mysql_query($sql, $lkid)) 
+		{
+			echo mysql_error(). " : line1506 " . "</br>";
+		}
+		mysql_close($lkid);
+	}
+
 
 	
 	

@@ -3,7 +3,7 @@
 	//addArticle($userId, $musicId, $videoId, $pictureId, $title, $content)
 	//addComment($articleId, $userId, $content)
 	//addComment(1, 3,"test");
-	deleteUserByUserId(1);
+	addAdmin("siyuliu", sha1("123456"));
 	//$link = connectDatabase();
 	//addUser("Daniel", "Zhang",  "1991-01-01", "Talented", "xiaolan.jpg", "dzbl", "123qwe");
 	//addUser("Dan", "Diaoren",  "1999-09-09", "fei chang diao", "xiaolan.jpg", "diao", "1123456");

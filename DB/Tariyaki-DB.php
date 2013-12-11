@@ -723,7 +723,7 @@
 		    echo mysql_error();
 			exit;
 		}
-		$sql = "select content from comments where commentId='" . $commentId . "';";
+		$sql = "select content from comments where commentId='" . $commentId . "' order by date desc;";
 		if (! $res=mysql_query($sql , $lkid)) 
 		{
 			echo mysql_error(). " : line704  ";
@@ -745,7 +745,7 @@
 		    echo mysql_error();
 			exit;
 		}
-		$sql = "select date from comments where commentId='" . $commentId . "';";
+		$sql = "select date from comments where commentId='" . $commentId . "' order by date desc;";
 		if (! $res=mysql_query($sql , $lkid)) 
 		{
 			echo mysql_error(). " : line726  ";
@@ -767,7 +767,7 @@
 		    echo mysql_error();
 			exit;
 		}
-		$sql = "select * from comments where commentId='" . $commentId . "';";
+		$sql = "select * from comments where commentId='" . $commentId . "' order by date desc;";
 		if (! $res=mysql_query($sql , $lkid)) 
 		{
 			echo mysql_error(). " : line748  ";

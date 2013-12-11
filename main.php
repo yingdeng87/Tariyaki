@@ -83,6 +83,7 @@ function AutoComplete(obj,autoObj,arr, arr2){
 	this.value_arr2=arr2;
     this.index=-1;          
     this.search_value="";   
+	this.searchArr=new Array();
 }
 AutoComplete.prototype={
     
@@ -162,7 +163,7 @@ AutoComplete.prototype={
         
         else if(event.keyCode==13){
             this.autoObj.className="auto_hidden";
-			
+			document.getElementById("friendId").value=this.value_arr2[this.searchArr[this.index]];
             this.index=-1;
         }else{
             this.index=-1;
@@ -181,8 +182,11 @@ AutoComplete.prototype={
             try{ var reg = new RegExp("(" + this.obj.value + ")","i");}
             catch (e){ return; }
             var div_index=0;
+			var search_index=0;
             for(var i=0;i<valueArr.length;i++){
                 if(reg.test(valueArr[i])){
+				    this.searchArr[search_index]=i;
+					search_index++;
                     var div = document.createElement("div");
                     div.className="auto_onmouseout";
                     div.seq=valueArr[i];

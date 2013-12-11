@@ -125,6 +125,7 @@
 				else if(thisForm.pass1.value.length<6)
 				{
 					alert("Your password have to be longer than 6!");
+					return false;
 				}
 				else if(thisForm.pass2.value==""||thisForm.pass2.value==null)
 				{
@@ -145,11 +146,6 @@
 					thisForm.selfIntro.focus();
 					return false;
 				}
-				else if(thisForm.gender[0].checked == false && thisForm.gender[1].checked == false)
-				{
-					alert("Please choose your gender!");
-					return false;
-				}
 				else if(thisForm.profilePic.value==""||thisForm.profilePic.value==null)
 				{
 					alert("Please choose a Profile Picture!");
@@ -159,6 +155,18 @@
 				else if(!picOK)
 				{
 					alert("Please upload proper profile Picture!");
+					return false;
+				}
+				else if(thisForm.securityQ.value==""||thisForm.securityQ.value==null)
+				{
+					alert("Please Set your security Question!");
+					thisForm.securityQ.focus();
+					return false;
+				}
+				else if(thisForm.securityA.value==""||thisForm.securityA.value==null)
+				{
+					alert("Please Set your security Answer!");
+					thisForm.securityA.focus();
 					return false;
 				}
 				else 
@@ -176,31 +184,150 @@
 			mysql_select_db($db,$conn);
 			if(isset($_POST["submit"]))
 			{
-				$username = $_POST["user"];
-				$userInfo = $_POST["selfIntro"];
+				$username = strip_tags(addslashes($_POST["user"]));
+				if($username==''||$username==null)
+				{
+					echo "<script type='text/javascript'>alert('You have input html tags as username!');location='javascript:history.back()';</script>";
+				}
+				$userInfo = strip_tags(addslashes($_POST["selfIntro"]));
+				if($userInfo==''||$userInfo==null)
+				{
+					echo "<script type='text/javascript'>alert('You have input html tags as Self Introduction!');location='javascript:history.back()';</script>";
+				}
 				if ($_FILES['profilePic']['size']) {
 					$profilename = $_FILES["profilePic"]["name"];
 					$arr = explode('.', $profilename);
 					$name = $arr[0];
 					$fp = fopen($_FILES['profilePic']['tmp_name'],'rb');
 					$type = $_FILES['profilePic']['type'];
+					if ($_FILES['profilePic']['size']>2000000) {
+						echo "<script type='text/javascript'>alert('Profile picture is oversize, please choose a smaller one.');location='javascript:history.back()';</script>";
+					}
 				}
 				$image = addslashes(fread(($fp), filesize($_FILES['profilePic']['tmp_name'])));
 				$profile = $image;
-				$email = $_POST["email"];
-				$psw = $_POST["pass1"];
-				$firstname = $_POST["first"];
-				$lastname = $_POST["last"];
+				$email = strip_tags(addslashes($_POST["email"]));
+				if($email==''||$email==null)
+				{
+					echo "<script type='text/javascript'>alert('You have input html tags as Email!');location='javascript:history.back()';</script>";
+				}
+				$psw = addslashes($_POST["pass1"]);
+				$firstname = strip_tags(addslashes($_POST["first"]));
+				if($firstname==''||$firstname==null)
+				{
+					echo "<script type='text/javascript'>alert('You have input html tags as First Name!');location='javascript:history.back()';</script>";
+				}
+				$lastname = strip_tags(addslashes($_POST["last"]));
+				if($lastname==''||$lastname==null)
+				{
+					echo "<script type='text/javascript'>alert('You have input html tags as Last Name!');location='javascript:history.back()';</script>";
+				}
+				$securityA = strip_tags(addslashes($_POST["securityA"]));
+				if($securityA==''||$securityA==null)
+				{
+					echo "<script type='text/javascript'>alert('You have input html tags as security Answer!');location='javascript:history.back()';</script>";
+				}
+				$securityQ = strip_tags(addslashes($_POST["securityQ"]));
+				if($securityQ==''||$securityQ==null)
+				{
+					echo "<script type='text/javascript'>alert('You have input html tags as security Question!');location='javascript:history.back()';</script>";
+				}
 				$psw = sha1($psw);
+				$securityA = sha1($securityA);
 				$sql="select username from login where username='$username'";
 				$query=mysql_query($sql);
 				$rows=mysql_num_rows($query);
 				if ($rows>0) {
 					echo "<script type='text/javascript'>alert('User Existed, enter again!');location='javascript:history.back()';</script>";
 				} else{
-					addUser($firstname,$lastname,null,$userInfo,$profile,$email,$username,$psw);
+					addUserSecurity($firstname,$lastname,null,$userInfo,$profile,$email,$securityQ,$securityA,$username,$psw);
+					$userId = userIdByUserNameAndPassword($username,$psw);
+					$SouthEastAsian = 0;
+					$Country = 0;
+					$SKA = 0;
+					$EastAsian = 0;
+					$Blues = 0;
+					$ModemFolk = 0;
+					$HipPop = 0;
+					$African = 0;
+					$Electronic =0;
+					$Jazz = 0;
+					$Classic = 0;
+					$Inspirational = 0;
+					$Pop =0;
+					$Rock =0;
+					$Opera =0;
+					$RB = 0;
+					$Industrial =0;
+					$ChineseOpera =0;
+					$HeavyMetal = 0;
+					if (!empty($_POST['speciality'])) {
+						foreach ($_POST['speciality'] as $specialty) {
+							if ($specialty=="HeavyMetal") {
+								$HeavyMetal = 1;
+							}
+							if ($specialty=="ChineseOpera") {
+								$ChineseOpera = 1;
+							}
+							if ($specialty=="Industrial") {
+								$Industrial = 1;
+							}
+							if ($specialty=="RB") {
+								$RB = 1;
+							}
+							if ($specialty=="Opera") {
+								$Opera = 1;
+							}
+							if ($specialty=="Rock") {
+								$Rock = 1;
+							}
+							if ($specialty=="SouthEastAsian") {
+								$SouthEastAsian = 1;
+							}
+							if ($specialty=="Country") {
+								$Country = 1;
+							}
+							if ($specialty=="SKA") {
+								$SKA = 1;
+							}
+							if ($specialty=="EastAsian") {
+								$EastAsian = 1;
+							}
+							if ($specialty=="Blues") {
+								$Blues = 1;
+							} 
+							if ($specialty=="ModemFolk") {
+								$ModemFolk = 1;
+							}
+							if ($specialty=="HipPop") {
+								$HipPop = 1;
+							}
+							if ($specialty=="African") {
+								$African = 1;
+							}
+							if ($specialty=="Electronic") {
+								$Electronic = 1;
+							} 
+							if ($specialty=="Jazz") {
+								$Jazz = 1;
+							}
+							if ($specialty=="Classic") {
+								$Classic = 1;
+							}
+							if ($specialty=="Inspirational") {
+								$Inspirational = 1;
+							} 
+							if ($specialty=="Pop") {
+								$Pop = 1;
+							}
+						}
+					}
+					addSpecialty($userId,$SouthEastAsian, $Country, $SKA, $EastAsian, $Blues, $ModemFolk, 
+					$HipPop, $African, $Electronic, $Jazz, $Classic, $Inspirational, $Pop, $Rock, $Opera, $RB, 
+					$Industrial, $ChineseOpera, $HeavyMetal);
 					echo "<script type='text/javascript'>alert('Successfully Registered!!!');location.href='login.php';</script>"; 
 				}
+
 			}
 
 		?>
@@ -223,10 +350,6 @@
 			<textarea rows="6" cols="30" placeholder="Self Introduction ..." id="selfIntro" name='selfIntro'></textarea><br>
 			</div>
 			<div class="subVertical" style="margin-left:100px;">
-			<label class="column3">Gender: 
-			<span style="padding-left:5px;">Male</span><input type="radio" name="gender" form="signUp" value="male">
-			<span style="padding-left:5px;">Female</span><input type="radio" name="gender" form="signUp" value="female">
-			</label><br><br><br>
 			<div id= "wrap">
 			<div class="column3" style="width:390px; cursor:pointer; margin-left:5px;" onclick="isHidden('fold','icon')">
 				<span>Specialty:</span>
@@ -236,30 +359,31 @@
 			<div id="fold">
 			<div id="specialty1">
 				<br>	
-				<input type="checkbox" value="South East Asian" name="speciality">South East Asian <br>
-				<input type="checkbox" value="East Asian" name="speciality">East Asian <br> 
-				<input type="checkbox" value="Hip pop" name="speciality">Hip pop <br> 
-				<input type="checkbox" value="Jazz" name="speciality">Jazz <br> 
-				<input type="checkbox" value="Pop" name="speciality">Pop <br> 
-				<input type="checkbox" value="R&B" name="speciality">R&B <br><br>
+				<input type="checkbox" value="SouthEastAsian" name="speciality[]">South East Asian <br>
+				<input type="checkbox" value="EastAsian" name="speciality[]">East Asian <br> 
+				<input type="checkbox" value="HipPop" name="speciality[]">Hip pop <br> 
+				<input type="checkbox" value="Jazz" name="speciality[]">Jazz <br> 
+				<input type="checkbox" value="Pop" name="speciality[]">Pop <br> 
+				<input type="checkbox" value="RB" name="speciality[]">R&B <br>
+				<input type="checkbox" value="HeavyMetal" name="specialty[]">Heavy Metal <br>
 			</div>
 			<div id="specialty2">
 				<br>
-				<input type="checkbox" value="Country" name="speciality">Country <br> 
-				<input type="checkbox" value="Blues" name="speciality">Blues <br> 
-				<input type="checkbox" value="African" name="speciality">African <br> 
-				<input type="checkbox" value="Classic" name="speciality">Classic <br> 
-				<input type="checkbox" value="Rock" name="speciality">Rock <br>
-				<input type="checkbox" value="Industrial" name="speciality">Industrial <br><br>
+				<input type="checkbox" value="Country" name="speciality[]">Country <br> 
+				<input type="checkbox" value="Blues" name="speciality[]">Blues <br> 
+				<input type="checkbox" value="African" name="speciality[]">African <br> 
+				<input type="checkbox" value="Classic" name="speciality[]">Classic <br> 
+				<input type="checkbox" value="Rock" name="speciality[]">Rock <br>
+				<input type="checkbox" value="Industrial" name="speciality[]">Industrial <br><br>
 			</div>
 			<div id="specialty3">
 				<br>
-				<input type="checkbox" value="SKA" name="speciality">SKA <br>
-				<input type="checkbox" value="Modem Folk" name="speciality">Modem Folk <br>
-				<input type="checkbox" value="Electronic" name="speciality">Electronic <br>
-				<input type="checkbox" value="Inspirational" name="speciality">Inspirational <br> 
-				<input type="checkbox" value="Opera" name="speciality">Opera <br> 
-				<input type="checkbox" value="Chinese Opera" name="speciality">Chinese Opera <br><br>
+				<input type="checkbox" value="SKA" name="speciality[]">SKA <br>
+				<input type="checkbox" value="ModemFolk" name="speciality[]">Modem Folk <br>
+				<input type="checkbox" value="Electronic" name="speciality[]">Electronic <br>
+				<input type="checkbox" value="Inspirational" name="speciality[]">Inspirational <br> 
+				<input type="checkbox" value="Opera" name="speciality[]">Opera <br> 
+				<input type="checkbox" value="ChineseOpera" name="speciality[]">Chinese Opera <br><br>
 			</div>
 			</div>
 			</div><br>
@@ -268,6 +392,8 @@
 			<div id="curImg">
 				<span id="imgHint">Profile image</span>
 			</div>
+			<input type='text' placeholder="Enter your security Question..." id="securityQ" name="securityQ"/><br>
+			<input type='text' placeholder="Enter your security Answer ..." id="securityA" name="securityA"/><br>
 			</div>
 		</FORM>
 		<p>

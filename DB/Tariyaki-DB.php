@@ -1406,6 +1406,28 @@
 		return $cid;
 		
 	}
+function addUserSecurity($firstName, $familyName,  $dob, $userInfo, $profile, $email, $securityQ, $securityA, $username, $psw)
+{
+    global $db;
+$lkid = connectDatabase();
+if (! $succ = mysql_select_db($db)) 
+{
+    echo mysql_error();
+exit;
+}
+//$size = filesize($profile);
+//$img=addslashes(fread(fopen($profile, "r"), $size));
+$sql = "insert into user(firstName, familyName, dob, userInfo, profile, email, securityQ, securityA
+) values ('" . $firstName . "', '" . $familyName . "', '" . $dob . "', '" . $userInfo . "', '" . $profile . "', '" . $email . "', '" . $securityQ .
+"', '" . $securityA . "' );"; 
+if (! $res=mysql_query($sql, $lkid)) 
+{
+echo mysql_error(). " : line1436 " . "</br>";
+}
+$id = mysql_insert_id($lkid);
+addLogin($id, $username, $psw);
+//mysql_close($lkid);
+}
 	
 	function stripTagAddSlashes($text)
 	{

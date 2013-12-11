@@ -262,6 +262,7 @@ AutoComplete.prototype={
 			<?php
 		
 				echo '<img height = 60px src="data:image/jpg;base64,'.base64_encode(profileByUserId($_SESSION['userId'])).'"><br>';
+				
 			?>
 
 			<h2>
@@ -271,6 +272,118 @@ AutoComplete.prototype={
 			<?php
 			echo firstNameByUserId($_SESSION['userId']).":";
 			echo userInfoByUserId($_SESSION['userId'])."</br>";
+			echo "I like ";
+			$arr=resOfSpecialtyByUserId($userId);
+			
+			while($row = mysql_fetch_array($arr,MYSQL_NUM))
+			{
+				$i=1;
+				//foreach($row = );
+				/*SouthEastAsian`, `Country`, `SKA`, `EastAsian`, `Blues`, `ModemFolk`, `HipPop`, `African`, 
+				`Electronic`, `Jazz`, `Classic`, `Inspirational`, `Pop`, `Rock`, `Opera`, `RB`, `Industrial`, `ChineseOpera`, `HeavyMetal`*/
+				foreach($row as $p)
+				{
+					if($i==2)
+					{
+						if($p==1)
+						echo 'SouthEastAsian ';
+					}
+					else if($i==3)
+					{
+						if($p==1)
+						echo 'Country ';
+					}
+					else if($i==4)
+					{
+						if($p==1)
+						echo 'SKA ';
+					}
+					else if($i==5)
+					{
+						if($p==1)
+						echo 'EastAsian ';
+					}
+					else if($i==6)
+					{
+						if($p==1)
+						echo 'Blues ';
+					}
+					else if($i==7)
+					{
+						if($p==1)
+						echo 'ModemFolk ';
+					}
+					else if($i==8)
+					{
+						if($p==1)
+						echo 'Hiphop ';
+					}
+					else if($i==9)
+					{
+						if($p==1)
+						echo 'African ';
+					}
+					else if($i==10)
+					{
+						if($p==1)
+						echo 'Electronic ';
+					}
+					else if($i==11)
+					{
+						if($p==1)
+						echo 'jazz';
+					}
+					else if($i==12)
+					{
+						if($p==1)
+						echo 'Classic ';
+					}
+					else if($i==13)
+					{
+						if($p==1)
+						echo 'inspirational ';
+					}
+					else if($i==14)
+					{
+						if($p==1)
+						echo 'Pop ';
+					}
+					else if($i==15)
+					{
+						if($p==1)
+						echo 'Rock ';
+					}
+					else if($i==16)
+					{
+						if($p==1)
+						echo 'Opera ';
+					}
+					else if($i==17)
+					{
+						if($p==1)
+						echo 'R&B ';
+					}
+					else if($i==18)
+					{
+						if($p==1)
+						echo 'Industrial ';
+					}
+					else if($i==19)
+					{
+						if($p==1)
+						echo 'ChineseOpera ';
+					}
+					else if($i==20)
+					{
+						if($p==1)
+						echo 'HeavyMetal ';
+					}
+					
+					$i++;
+				}
+				echo"music";
+			}
+			
 			?>
 			</p>
 		</div>

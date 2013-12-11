@@ -127,7 +127,7 @@
 			<div id = "commentWrap">
 			<ul>
 			<?php
-			if(isset($_POST['articleId'])&&isset($_POST['commentCheck']))
+			if(isset($_POST['articleId']))
 			{
 			
 				
@@ -144,7 +144,7 @@
 					$userId = $_POST['userId'];
 					echo"<input hidden type = text name = userId value = $userId />";
 					$articleId = $_POST['articleId'];
-				
+					echo"<input hidden type = text name = articleId value = $articleId />";
 					echo"<input type = submit name = deleteCommentButton value = 'delete' />";
 					echo'</form>';
 					
